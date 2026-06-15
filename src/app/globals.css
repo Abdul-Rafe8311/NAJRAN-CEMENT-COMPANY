@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+/* ============================================================
+   NAJRAN CEMENT — DESIGN SYSTEM (Tailwind v4 @theme tokens)
+   LIGHT THEME · clean white SaaS aesthetic · brand navy + teal
+   (token keys kept stable; only values changed for theming)
+   ============================================================ */
+@theme {
+  /* Surfaces — light */
+  --color-void: #ffffff; /* page background */
+  --color-coal: #f6f7f9; /* alt section / card fill */
+  --color-graphite: #eef1f4; /* raised fill */
+  --color-line: #e6e8ec; /* hairline border */
+  --color-line-soft: #eef0f3;
+
+  /* Text — ink on white */
+  --color-bone: #0b1220; /* primary text */
+  --color-ash: #4b5563; /* secondary text */
+  --color-muted: #8a909c; /* tertiary text */
+
+  /* Brand — from the Najran logo: navy + teal */
+  --color-kiln: #1b3a6b; /* primary accent (navy) */
+  --color-ember: #3f8f7f; /* secondary accent (teal) */
+  --color-concrete: #5b7a99; /* steel blue */
+  --color-mineral: #6f8aa6;
+
+  /* Typography */
+  --font-display: var(--font-space), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Fluid type scale (clamp) */
+  --text-display: clamp(3rem, 9vw, 9.5rem);
+  --text-h1: clamp(2.4rem, 6vw, 5rem);
+  --text-h2: clamp(1.9rem, 4vw, 3.25rem);
+  --text-h3: clamp(1.35rem, 2.4vw, 1.9rem);
+
+  /* Easing + motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+
+  /* Radii + elevation */
+  --radius-card: 18px;
+  --shadow-soft: 0 1px 2px rgba(16, 24, 40, 0.04), 0 18px 44px -20px rgba(16, 24, 40, 0.22);
+  --shadow-hair: 0 1px 2px rgba(16, 24, 40, 0.05), 0 1px 0 rgba(16, 24, 40, 0.02);
+
+  /* Layout */
+  --container-page: 1320px;
+}
+
+/* ---------- Base ---------- */
+:root {
+  color-scheme: light;
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  font-feature-settings: "ss01", "cv01";
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Selection */
+::selection {
+  background: var(--color-kiln);
+  color: #ffffff;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-coal);
+}
+::-webkit-scrollbar-thumb {
+  background: #d4d8de;
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-kiln);
+}
+
+/* ---------- Utilities ---------- */
+@layer utilities {
+  .container-page {
+    width: 100%;
+    max-width: var(--container-page);
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  /* Brand gradient text (navy → teal) */
+  .text-kiln-grad {
+    background: linear-gradient(100deg, var(--color-kiln), var(--color-ember));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glow-kiln {
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-kiln) 30%, transparent),
+      0 18px 60px -20px color-mix(in srgb, var(--color-kiln) 35%, transparent);
+  }
+
+  /* Soft floating card */
+  .card-soft {
+    background: #ffffff;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* Hairline grid background (light) */
+  .bg-grid {
+    background-image: linear-gradient(var(--color-line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-line-soft) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 30%, transparent 75%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 30%, transparent 75%);
+  }
+
+  /* Subtle grain (very faint on white) */
+  .grain::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
