@@ -8,6 +8,7 @@ import { Applications } from "@/components/sections/applications";
 import { Reach } from "@/components/sections/reach";
 import { Investors } from "@/components/sections/investors";
 import { Careers } from "@/components/sections/careers";
+import { FeyCards } from "@/components/sections/fey-cards";
 import { FinalCta } from "@/components/sections/final-cta";
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
         <Reach />
         <Investors />
         <Careers />
+        <FeyCards />
         <FinalCta />
       </main>
     </>

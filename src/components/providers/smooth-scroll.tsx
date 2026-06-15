@@ -18,10 +18,11 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     gsap.registerPlugin(ScrollTrigger);
 
     const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.12, // responsive smoothing — snappier than duration-based easing
+      wheelMultiplier: 1,
       smoothWheel: true,
-      touchMultiplier: 1.5,
+      syncTouch: true,
+      touchMultiplier: 1.6,
     });
 
     lenis.on("scroll", ScrollTrigger.update);

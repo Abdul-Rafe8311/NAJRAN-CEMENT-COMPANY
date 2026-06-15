@@ -172,6 +172,30 @@ html.lenis body {
   }
 }
 
+@keyframes hue-pan {
+  to {
+    background-position: 200% 50%;
+  }
+}
+
+@layer utilities {
+  /* Continuously shifting brand gradient text */
+  .text-grad-anim {
+    background: linear-gradient(
+      100deg,
+      var(--color-kiln),
+      var(--color-ember),
+      var(--color-concrete),
+      var(--color-kiln)
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: hue-pan 6s linear infinite;
+  }
+}
+
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *,
