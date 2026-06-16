@@ -11,6 +11,8 @@ type Props = {
   speed?: number; // ms per character
   startDelay?: number; // ms before typing begins
   className?: string;
+  highlightClass?: string;
+  cursorClass?: string;
 };
 
 /**
@@ -20,7 +22,14 @@ type Props = {
  * never reflows. Whole words are kept on one line (no mid-word breaks).
  * Reduced-motion users see the full text immediately.
  */
-export function Typewriter({ segments, speed = 55, startDelay = 1700, className }: Props) {
+export function Typewriter({
+  segments,
+  speed = 55,
+  startDelay = 1700,
+  className,
+  highlightClass = "text-kiln-grad",
+  cursorClass = "bg-kiln",
+}: Props) {
   // Build word units, preserving each word's highlight flag.
   const words = useMemo(() => {
     const out: { text: string; highlight: boolean }[] = [];
@@ -62,7 +71,7 @@ export function Typewriter({ segments, speed = 55, startDelay = 1700, className 
   const Cursor = (
     <motion.span
       aria-hidden
-      className="ml-0.5 inline-block w-[0.055em] translate-y-[0.08em] self-center rounded-full bg-kiln"
+      className={cn("ml-0.5 inline-block w-[0.055em] translate-y-[0.08em] self-center rounded-full", cursorClass)}
       style={{ height: "0.82em" }}
       animate={{ opacity: [1, 1, 0, 0] }}
       transition={{ repeat: Infinity, duration: 1, times: [0, 0.5, 0.5, 1], ease: "linear" }}
@@ -93,7 +102,7 @@ export function Typewriter({ segments, speed = 55, startDelay = 1700, className 
                 <Fragment key={ci}>
                   <span
                     className={cn(
-                      word.highlight && "text-kiln-grad",
+                      word.highlight && highlightClass,
                       idx < count ? "opacity-100" : "opacity-0"
                     )}
                   >

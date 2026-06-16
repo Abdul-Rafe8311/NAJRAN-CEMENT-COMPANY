@@ -179,6 +179,31 @@ html.lenis body {
 }
 
 @layer utilities {
+  /* Bright fire gradient for headlines on dark backgrounds */
+  .text-fire-grad {
+    background: linear-gradient(100deg, #ffc46b, #ff7a2d 45%, #e8431f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Faint grid for dark sections */
+  .bg-grid-dark {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    -webkit-mask-image: radial-gradient(ellipse 85% 65% at 50% 40%, #000 25%, transparent 78%);
+    mask-image: radial-gradient(ellipse 85% 65% at 50% 40%, #000 25%, transparent 78%);
+  }
+
+  /* Glassmorphism on dark */
+  .glass-dark {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
   /* Continuously shifting brand gradient text */
   .text-grad-anim {
     background: linear-gradient(
