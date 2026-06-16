@@ -1,7 +1,7 @@
 import { Preloader } from "@/components/layout/preloader";
 import { Hero } from "@/components/sections/hero";
 import { Impact } from "@/components/sections/impact";
-import { Journey } from "@/components/sections/journey";
+import { QuarryToConstruction } from "@/components/sections/quarry-to-construction";
 import { Products } from "@/components/sections/products";
 import { Sustainability } from "@/components/sections/sustainability";
 import { Applications } from "@/components/sections/applications";
@@ -15,10 +15,10 @@ export default function Home() {
   return (
     <>
       <Preloader />
-      <main>
+      <main className="bg-[#05080f]">
         <Hero />
         <Impact />
-        <Journey />
+        <QuarryToConstruction />
         <Products />
         <Sustainability />
         <Applications />

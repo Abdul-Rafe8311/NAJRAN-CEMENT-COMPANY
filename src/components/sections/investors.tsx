@@ -8,9 +8,11 @@ import { ReviewBadge } from "@/components/ui/review-badge";
 
 export function Investors() {
   return (
-    <section id="investors" className="relative border-t border-line bg-gradient-to-b from-[#f7f5f2] to-white py-28 md:py-36">
-      <div className="container-page">
+    <section id="investors" className="relative overflow-hidden border-t border-white/10 py-28 text-white md:py-36">
+      <div className="pointer-events-none absolute left-0 top-0 h-[40vh] w-[40vh] rounded-full bg-[#1b3a6b]/25 blur-[130px]" />
+      <div className="container-page relative">
         <SectionHeading
+          tone="dark"
           eyebrow="Investor Confidence"
           title="A foundation built on trust."
           intro="A publicly listed company on the Saudi Exchange with a track record of disciplined, transparent operation since 2005."
@@ -19,8 +21,8 @@ export function Investors() {
         <RevealGroup className="mt-16 grid grid-cols-2 gap-5 lg:grid-cols-4">
           {INVESTOR_FACTS.map((f) => (
             <Reveal key={f.label}>
-              <div className="relative h-full rounded-[var(--radius-card)] border border-line bg-white p-7 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
-                <div className="font-display text-4xl font-semibold tracking-tight md:text-5xl">
+              <div className="relative h-full rounded-[var(--radius-card)] border border-white/10 bg-white/[0.03] p-7 backdrop-blur-sm">
+                <div className="font-display bg-gradient-to-br from-[#f5c56b] to-[#ff7a2d] bg-clip-text text-4xl font-semibold tracking-tight text-transparent md:text-5xl">
                   {f.review ? (
                     "—"
                   ) : f.value !== undefined && f.value > 0 ? (
@@ -29,9 +31,9 @@ export function Investors() {
                     <span>{f.text}</span>
                   )}
                 </div>
-                <div className="mt-3 text-sm font-medium text-bone">{f.label}</div>
+                <div className="mt-3 text-sm font-medium text-white">{f.label}</div>
                 {f.text && !f.review && f.value !== undefined && f.value > 0 && (
-                  <div className="mt-1 text-xs text-muted">{f.text}</div>
+                  <div className="mt-1 text-xs text-white/40">{f.text}</div>
                 )}
                 {f.review && <ReviewBadge className="mt-3" />}
               </div>
@@ -40,14 +42,14 @@ export function Investors() {
         </RevealGroup>
 
         {/* Certifications marquee */}
-        <div className="mt-12 overflow-hidden rounded-full border border-line bg-coal py-4">
+        <div className="mt-12 overflow-hidden rounded-full border border-white/10 bg-white/[0.03] py-4">
           <div className="flex animate-[marquee_28s_linear_infinite] gap-12 whitespace-nowrap pr-12">
             {[...CERTIFICATIONS, ...CERTIFICATIONS].map((c, i) => (
               <span
                 key={i}
-                className="flex items-center gap-3 text-sm font-medium uppercase tracking-wider text-ash"
+                className="flex items-center gap-3 text-sm font-medium uppercase tracking-wider text-white/60"
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-kiln" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[#f5c56b]" />
                 {c}
               </span>
             ))}

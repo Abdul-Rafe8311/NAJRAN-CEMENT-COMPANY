@@ -37,11 +37,12 @@ export function FeyCards() {
   const [open, setOpen] = useState(false);
 
   return (
-    <section className="relative overflow-hidden border-t border-line bg-coal py-28 md:py-40">
-      <div className="container-page">
+    <section className="relative overflow-hidden border-t border-white/10 py-28 text-white md:py-40">
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[50vh] w-[50vh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f5c56b]/[0.07] blur-[150px]" />
+      <div className="container-page relative">
         <Reveal className="mx-auto max-w-xl text-center">
-          <span className="inline-flex items-center gap-2.5 text-xs font-medium uppercase tracking-[0.22em] text-muted">
-            <span className="h-px w-8 bg-kiln" />
+          <span className="inline-flex items-center gap-2.5 text-xs font-medium uppercase tracking-[0.22em] text-[#f5c56b]">
+            <span className="h-px w-8 bg-[#f5c56b]" />
             Our Range
           </span>
         </Reveal>
@@ -58,7 +59,7 @@ export function FeyCards() {
           <h2 className="font-display pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 px-4 text-center text-[clamp(2rem,6vw,4.5rem)] font-semibold leading-[1.02]">
             <span className="text-grad-anim">Built to endure.</span>
             <br />
-            <span className="text-bone">Made for the Kingdom.</span>
+            <span className="text-white">Made for the Kingdom.</span>
           </h2>
 
           {/* Fanning deck */}
@@ -72,27 +73,27 @@ export function FeyCards() {
                 initial="closed"
                 transition={{ type: "spring", stiffness: 220, damping: 26, mass: 0.7 }}
                 style={{ zIndex: CARDS.length - Math.abs(i - center), transformOrigin: "bottom center" }}
-                className="absolute left-1/2 top-1/2 -ml-[88px] -mt-[124px] h-[248px] w-[176px] overflow-hidden rounded-2xl border border-line bg-white shadow-[0_24px_60px_-24px_rgba(16,24,40,0.45)]"
+                className="absolute left-1/2 top-1/2 -ml-[88px] -mt-[124px] h-[248px] w-[176px] overflow-hidden rounded-2xl border border-white/12 bg-[#0c1322]/90 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.7)] backdrop-blur-md"
               >
-                <div className="flex items-center justify-between border-b border-line px-4 py-3">
-                  <span className="font-display text-sm font-semibold tracking-tight text-kiln">
+                <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+                  <span className="font-display text-sm font-semibold tracking-tight text-[#f5c56b]">
                     {c.short}
                   </span>
-                  <span className="h-2 w-2 rounded-full bg-gradient-to-br from-kiln to-ember" />
+                  <span className="h-2 w-2 rounded-full bg-gradient-to-br from-[#f5c56b] to-[#ff7a2d]" />
                 </div>
                 <div className="px-4 py-4">
-                  <div className="text-[11px] font-medium text-muted">{c.name}</div>
+                  <div className="text-[11px] font-medium text-white/50">{c.name}</div>
                   <div className="mt-5 flex h-20 items-end gap-1.5">
                     {c.bars.map((h, bi) => (
                       <div
                         key={bi}
-                        className="flex-1 rounded-t bg-gradient-to-t from-kiln/25 to-ember/60"
+                        className="flex-1 rounded-t bg-gradient-to-t from-[#f5c56b]/25 to-[#ff7a2d]/70"
                         style={{ height: `${h}%` }}
                       />
                     ))}
                   </div>
-                  <div className="mt-5 h-px w-full bg-line" />
-                  <div className="mt-3 text-[10px] uppercase tracking-wider text-muted">
+                  <div className="mt-5 h-px w-full bg-white/10" />
+                  <div className="mt-3 text-[10px] uppercase tracking-wider text-white/40">
                     Cement grade
                   </div>
                 </div>

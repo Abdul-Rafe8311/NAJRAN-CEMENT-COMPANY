@@ -158,25 +158,25 @@ export const APPLICATIONS: Application[] = [
     title: "Coastal, Dams & Tunnels",
     product: "Type V · SRC",
     desc: "Sulphate-resistant cement for direct contact with high-sulphate soils, dams and tunnels.",
-    hue: "from-[#eef3f1] to-white",
+    hue: "from-[#12303a] via-[#0b1a2c] to-[#05080f]",
   },
   {
     title: "Structural & Foundations",
     product: "Type I · OPC",
     desc: "High-strength Ordinary Portland Cement for structural works and prestressed concrete.",
-    hue: "from-[#eef2f7] to-white",
+    hue: "from-[#1a2c4a] via-[#0c1626] to-[#05080f]",
   },
   {
     title: "Reinforced & Water Tanks",
     product: "PPC",
     desc: "Pozzolanic cement for reinforced buildings, water tanks and general construction.",
-    hue: "from-[#f1f0f5] to-white",
+    hue: "from-[#2a2030] via-[#16111f] to-[#05080f]",
   },
   {
     title: "Plastering & Finishing",
     product: "Lyasah / Lyasah+",
     desc: "Smooth, consistent plastering cement for interior and exterior finishes.",
-    hue: "from-[#eef3f4] to-white",
+    hue: "from-[#2e2415] via-[#1a1409] to-[#05080f]",
   },
 ];
 

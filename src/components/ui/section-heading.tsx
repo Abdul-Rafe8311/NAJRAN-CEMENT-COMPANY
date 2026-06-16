@@ -10,14 +10,17 @@ export function SectionHeading({
   title,
   intro,
   align = "left",
+  tone = "light",
   className,
 }: {
   eyebrow: string;
   title: string;
   intro?: string;
   align?: "left" | "center";
+  tone?: "light" | "dark";
   className?: string;
 }) {
+  const dark = tone === "dark";
   return (
     <div
       className={cn(
@@ -27,17 +30,29 @@ export function SectionHeading({
       )}
     >
       <Reveal>
-        <span className="inline-flex items-center gap-2.5 text-xs font-medium uppercase tracking-[0.22em] text-muted">
-          <span className="h-px w-8 bg-kiln" />
+        <span
+          className={cn(
+            "inline-flex items-center gap-2.5 text-xs font-medium uppercase tracking-[0.22em]",
+            dark ? "text-[#f5c56b]" : "text-muted"
+          )}
+        >
+          <span className={cn("h-px w-8", dark ? "bg-[#f5c56b]" : "bg-kiln")} />
           {eyebrow}
         </span>
       </Reveal>
-      <h2 className="font-display mt-5 text-h2 font-semibold leading-[1.04] text-balance">
+      <h2
+        className={cn(
+          "font-display mt-5 text-h2 font-semibold leading-[1.04] text-balance",
+          dark && "text-white"
+        )}
+      >
         <TextReveal text={title} />
       </h2>
       {intro && (
         <Reveal delay={0.1}>
-          <p className="mt-5 text-base leading-relaxed text-ash md:text-lg">{intro}</p>
+          <p className={cn("mt-5 text-base leading-relaxed md:text-lg", dark ? "text-white/60" : "text-ash")}>
+            {intro}
+          </p>
         </Reveal>
       )}
     </div>

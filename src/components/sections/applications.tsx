@@ -16,9 +16,10 @@ export function Applications() {
   const [active, setActive] = useState(0);
 
   return (
-    <section id="projects" className="relative border-t border-line bg-coal py-28 md:py-36">
+    <section id="projects" className="relative border-t border-white/10 py-28 text-white md:py-36">
       <div className="container-page">
         <SectionHeading
+          tone="dark"
           eyebrow="Applications"
           title="Where our cement performs."
           intro="Each product is matched to the structures it serves best. Explore how Najran Cement holds up across the Kingdom's most demanding environments."
@@ -26,7 +27,7 @@ export function Applications() {
 
         <div className="mt-16 grid gap-10 lg:grid-cols-[1fr_1.1fr]">
           {/* List */}
-          <ul className="divide-y divide-line border-y border-line">
+          <ul className="divide-y divide-white/10 border-y border-white/10">
             {APPLICATIONS.map((a, i) => (
               <li key={a.title}>
                 <button
@@ -39,7 +40,7 @@ export function Applications() {
                     <span
                       className={cn(
                         "font-display text-sm tabular-nums transition-colors",
-                        active === i ? "text-kiln" : "text-muted"
+                        active === i ? "text-[#f5c56b]" : "text-white/40"
                       )}
                     >
                       0{i + 1}
@@ -47,20 +48,20 @@ export function Applications() {
                     <span
                       className={cn(
                         "font-display text-xl font-semibold transition-colors md:text-2xl",
-                        active === i ? "text-bone" : "text-ash group-hover:text-bone"
+                        active === i ? "text-white" : "text-white/50 group-hover:text-white"
                       )}
                     >
                       {a.title}
                     </span>
                   </div>
-                  <span className="text-xs uppercase tracking-wider text-muted">{a.product}</span>
+                  <span className="text-xs uppercase tracking-wider text-white/40">{a.product}</span>
                 </button>
               </li>
             ))}
           </ul>
 
           {/* Preview */}
-          <div className="relative min-h-[340px] overflow-hidden rounded-[var(--radius-card)] border border-line bg-white shadow-soft">
+          <div className="relative min-h-[340px] overflow-hidden rounded-[var(--radius-card)] border border-white/10">
             <AnimatePresence mode="wait">
               <motion.div
                 key={active}
@@ -73,12 +74,12 @@ export function Applications() {
                   APPLICATIONS[active].hue
                 )}
               >
-                <div className="bg-grid pointer-events-none absolute inset-0 opacity-40" />
+                <div className="bg-grid-dark pointer-events-none absolute inset-0 opacity-50" />
                 <motion.span
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.1 }}
-                  className="relative font-display text-xs uppercase tracking-[0.2em] text-kiln"
+                  className="relative font-display text-xs uppercase tracking-[0.2em] text-[#f5c56b]"
                 >
                   {APPLICATIONS[active].product}
                 </motion.span>
@@ -86,7 +87,7 @@ export function Applications() {
                   initial={{ y: 24, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.15 }}
-                  className="relative font-display mt-3 text-3xl font-semibold md:text-4xl"
+                  className="relative font-display mt-3 text-3xl font-semibold text-white md:text-4xl"
                 >
                   {APPLICATIONS[active].title}
                 </motion.h3>
@@ -94,7 +95,7 @@ export function Applications() {
                   initial={{ y: 24, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.2 }}
-                  className="relative mt-4 max-w-md text-ash"
+                  className="relative mt-4 max-w-md text-white/70"
                 >
                   {APPLICATIONS[active].desc}
                 </motion.p>
