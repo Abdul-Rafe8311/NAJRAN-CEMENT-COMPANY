@@ -7,7 +7,7 @@ import { RevealGroup, Reveal } from "@/components/ui/reveal";
 
 export function Impact() {
   return (
-    <section id="impact" className="relative border-t border-line py-28 md:py-36">
+    <section id="impact" className="relative border-t border-line bg-gradient-to-b from-white to-[#f3f7fc] py-28 md:py-36">
       <div className="container-page">
         <SectionHeading
           eyebrow="Company Impact"

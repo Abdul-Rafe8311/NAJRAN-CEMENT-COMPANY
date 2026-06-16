@@ -1,18 +1,29 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 import type { Block, PageContent } from "@/lib/pages";
 import { COMPANY } from "@/lib/data";
 import { Reveal, RevealGroup } from "@/components/ui/reveal";
 import { TextReveal } from "@/components/ui/text-reveal";
 import { ReviewBadge } from "@/components/ui/review-badge";
+import { SupplierForm } from "./supplier-form";
+import { cn } from "@/lib/utils";
+
+function Arrow() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path d="M1 7h11M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 function BlockView({ block }: { block: Block }) {
   switch (block.type) {
     case "heading":
       return (
         <Reveal>
-          <h2 className="font-display mt-12 text-h3 font-semibold first:mt-0">{block.text}</h2>
+          <h2 className="font-display mt-12 text-h3 font-semibold text-bone first:mt-0">{block.text}</h2>
         </Reveal>
       );
     case "paragraph":
@@ -21,13 +32,71 @@ function BlockView({ block }: { block: Block }) {
           <p className="mt-4 text-base leading-relaxed text-ash md:text-lg">{block.text}</p>
         </Reveal>
       );
+    case "media": {
+      const isProduct = !!block.heading;
+      return (
+        <Reveal>
+          <div className="mt-12 grid gap-7 first:mt-0 md:grid-cols-[220px_1fr] md:items-start">
+            <div
+              className={cn(
+                "overflow-hidden rounded-[var(--radius-card)] border border-line",
+                isProduct ? "bg-coal p-4" : "shadow-soft"
+              )}
+            >
+              <Image
+                src={block.src}
+                alt={block.alt}
+                width={isProduct ? 440 : 1600}
+                height={isProduct ? 660 : 800}
+                className={cn("h-auto w-full", isProduct ? "object-contain" : "object-cover")}
+              />
+            </div>
+            <div>
+              {block.heading && (
+                <h3 className="font-display text-xl font-semibold text-kiln md:text-2xl">
+                  {block.heading}
+                </h3>
+              )}
+              <div className={cn("space-y-4", block.heading && "mt-4")}>
+                {block.paras.map((p, i) => (
+                  <p
+                    key={i}
+                    className={cn(
+                      "leading-relaxed",
+                      isProduct && i === 0 ? "font-semibold text-bone" : "text-ash md:text-lg"
+                    )}
+                  >
+                    {p}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      );
+    }
+    case "columns":
+      return (
+        <RevealGroup className="mt-8 grid gap-10 md:grid-cols-2">
+          {block.items.map((c) => (
+            <Reveal key={c.heading} className="rounded-[var(--radius-card)] border border-line bg-coal p-8 text-center">
+              <h3 className="font-display text-2xl font-semibold text-kiln">{c.heading}</h3>
+              <div className="mt-4 space-y-3">
+                {c.body.map((p, i) => (
+                  <p key={i} className="leading-relaxed text-ash">{p}</p>
+                ))}
+              </div>
+            </Reveal>
+          ))}
+        </RevealGroup>
+      );
     case "list":
       return (
         <RevealGroup className="mt-6 space-y-3">
           {block.items.map((it) => (
             <Reveal key={it} className="flex items-start gap-3">
               <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-kiln" />
-              <span className="text-ash">{it}</span>
+              <span className="text-ash md:text-lg">{it}</span>
             </Reveal>
           ))}
         </RevealGroup>
@@ -38,7 +107,7 @@ function BlockView({ block }: { block: Block }) {
           {block.items.map((it) => (
             <Reveal key={it.term}>
               <div className="card-soft h-full p-6">
-                <h3 className="font-display text-lg font-semibold">{it.term}</h3>
+                <h3 className="font-display text-lg font-semibold text-kiln">{it.term}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-ash">{it.desc}</p>
               </div>
             </Reveal>
@@ -76,17 +145,47 @@ function BlockView({ block }: { block: Block }) {
           ))}
         </RevealGroup>
       );
-    case "callout":
+    case "table":
       return (
         <Reveal>
-          <div className="mt-8 rounded-[var(--radius-card)] border border-kiln/20 bg-kiln/[0.04] p-6">
-            {block.review && <ReviewBadge className="mb-3" />}
-            <p className="font-display text-lg leading-relaxed text-bone md:text-xl">
-              “{block.text}”
-            </p>
+          <div className="mt-8 overflow-hidden rounded-[var(--radius-card)] border border-line shadow-soft">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-gradient-to-r from-kiln to-[#24487c] text-white">
+                  {block.columns.map((c) => (
+                    <th key={c} className="px-5 py-3.5 text-left font-medium">{c}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {block.rows.map((r, ri) => (
+                  <tr key={ri} className="border-t border-line odd:bg-white even:bg-coal">
+                    {r.map((cell, ci) => (
+                      <td key={ci} className="px-5 py-3.5 text-bone">{cell || "—"}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </Reveal>
       );
+    case "cta":
+      return (
+        <Reveal>
+          <div className="mt-10">
+            <Link
+              href={block.href}
+              className="inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-kiln to-ember px-8 py-3.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03]"
+            >
+              {block.label}
+              <Arrow />
+            </Link>
+          </div>
+        </Reveal>
+      );
+    case "form":
+      return <SupplierForm />;
     case "contact":
       return (
         <Reveal>
@@ -106,36 +205,46 @@ function BlockView({ block }: { block: Block }) {
           </div>
         </Reveal>
       );
+    case "callout":
+      return (
+        <Reveal>
+          <div className="mt-8 rounded-[var(--radius-card)] border border-kiln/20 bg-kiln/[0.04] p-6">
+            {block.review && <ReviewBadge className="mb-3" />}
+            <p className="font-display text-lg leading-relaxed text-bone md:text-xl">“{block.text}”</p>
+          </div>
+        </Reveal>
+      );
   }
 }
 
 export function ContentPage({ page }: { page: PageContent }) {
   return (
-    <article className="pt-32 pb-28 md:pt-40 md:pb-36">
-      {/* Header */}
-      <header className="relative overflow-hidden border-b border-line">
-        <div className="bg-grid pointer-events-none absolute inset-0 opacity-50" />
-        <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-kiln/[0.06] blur-3xl" />
-        <div className="container-page relative pb-14">
+    <article className="pb-28 md:pb-36">
+      {/* Colored industrial banner */}
+      <header className="relative overflow-hidden">
+        <div className="absolute inset-0">
+          <Image src="/images/plant-full.jpg" alt="" fill priority className="object-cover" sizes="100vw" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0a1c36]/95 via-[#13294a]/92 to-[#1b3a6b]/88" />
+        </div>
+        <div className="bg-grid pointer-events-none absolute inset-0 opacity-[0.15]" />
+        <div className="container-page relative pt-36 pb-16 md:pt-44 md:pb-20">
           <Reveal>
-            <span className="inline-flex items-center gap-2.5 text-xs font-medium uppercase tracking-[0.22em] text-muted">
-              <span className="h-px w-8 bg-kiln" />
+            <span className="inline-flex items-center gap-2.5 text-xs font-medium uppercase tracking-[0.22em] text-white/70">
+              <span className="h-px w-8 bg-ember" />
               {page.eyebrow}
             </span>
           </Reveal>
-          <h1 className="font-display mt-5 max-w-4xl text-h1 font-semibold leading-[1.04] text-balance">
+          <h1 className="font-display mt-5 max-w-4xl text-h1 font-semibold leading-[1.04] text-balance text-white">
             <TextReveal text={page.title} />
           </h1>
           <Reveal delay={0.1}>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ash">{page.intro}</p>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80">{page.intro}</p>
           </Reveal>
           {page.review && (
             <Reveal delay={0.15}>
-              <div className="mt-6">
+              <div className="mt-6 flex items-center gap-3">
                 <ReviewBadge />
-                <span className="ml-3 text-xs text-muted">
-                  This page contains placeholder content pending client materials.
-                </span>
+                <span className="text-xs text-white/60">Placeholder content pending client materials.</span>
               </div>
             </Reveal>
           )}
@@ -143,11 +252,11 @@ export function ContentPage({ page }: { page: PageContent }) {
       </header>
 
       {/* Body */}
-      <motion.div className="container-page mt-12 max-w-3xl">
+      <div className="container-page mt-14 max-w-4xl">
         {page.blocks.map((block, i) => (
           <BlockView key={i} block={block} />
         ))}
-      </motion.div>
+      </div>
     </article>
   );
 }

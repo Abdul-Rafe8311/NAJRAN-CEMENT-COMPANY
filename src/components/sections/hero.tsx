@@ -89,7 +89,7 @@ export function Hero() {
             initial={{ y: 60 }}
             animate={{ y: 0 }}
             transition={{ delay: 1.9, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-            style={{ rotateX, scale, transformStyle: "preserve-3d" }}
+            style={{ rotateX, scale, transformStyle: "preserve-3d", willChange: "transform" }}
             className="origin-top"
           >
             <HeroMockup />

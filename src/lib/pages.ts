@@ -11,10 +11,15 @@
 export type Block =
   | { type: "heading"; text: string }
   | { type: "paragraph"; text: string }
+  | { type: "media"; src: string; alt: string; heading?: string; paras: string[] }
+  | { type: "columns"; items: { heading: string; body: string[] }[] }
   | { type: "list"; items: string[] }
   | { type: "values"; items: { term: string; desc: string }[] }
   | { type: "people"; items: { name: string; role: string }[] }
   | { type: "standards"; items: string[] }
+  | { type: "table"; columns: string[]; rows: string[][] }
+  | { type: "cta"; label: string; href: string }
+  | { type: "form" }
   | { type: "contact" }
   | { type: "callout"; text: string; review?: boolean };
 
@@ -30,23 +35,26 @@ export const PAGES: Record<string, PageContent> = {
   /* ---------------- ABOUT ---------------- */
   "about/history": {
     eyebrow: "About",
-    title: "Our History",
+    title: "History",
     intro:
       "From a single geological survey to one of the southern region's most dependable cement producers.",
     blocks: [
       {
-        type: "paragraph",
-        text: "Najran Cement Company was established in 2005 as a Saudi closed joint stock company with a paid-up capital of one hundred and fifty million riyals. The company obtained the first mining license under the new mining system approved by the late King Abdullah bin Abdulaziz to develop the cement industry in the region.",
+        type: "media",
+        src: "/images/plant-full.jpg",
+        alt: "Najran Cement production plant",
+        paras: [
+          "Najran Cement Company was established in 2005 as a Saudi shareholder company closed with a capital of one hundred and fifty million riyals. It obtained the first mining license according to the new mining system approved by the late King Abdullah bin Abdul Aziz to establish a project for the cement industry in the region.",
+          "The project includes the main plant located in Al Mandafan affiliated to Sultanah Center; 240 km north east of Najran city as well as a separate unit for grinding cement which is located at the Aakfah center at about 70 km from Najran city on the road leading to the Asir area.",
+        ],
       },
-      { type: "heading", text: "Facilities" },
       {
         type: "paragraph",
-        text: "The primary manufacturing plant is located in Al Mandafan, part of the Sultanah Center, approximately 240 km northeast of Najran city. A separate cement grinding unit operates at the Aakfah Center, roughly 70 km from Najran along the route toward the Asir region.",
+        text: "The founding idea came across the mind after several studies and surveys to ascertain the presence of raw materials suitable for the cement industry.",
       },
-      { type: "heading", text: "Site Selection" },
       {
         type: "paragraph",
-        text: "The founding concept emerged after extensive research to verify the availability of suitable raw materials. Analysis confirmed the presence of the essential resources at Al-Mandan — limestone, clay, sandstone and gypsum — supported by data from the Ministry of Mineral Wealth, validating the site for the company's operations.",
+        text: "Based on the positive results obtained from the results of the analysis and description of the raw materials and the use of the information provided by the Ministry of Mineral wealth, the site was detected in Al-Mandan where it contains most of the necessary raw materials in the cement industry such as limestone, clay, sandstone and gypsum.",
       },
     ],
   },
@@ -56,12 +64,21 @@ export const PAGES: Record<string, PageContent> = {
     title: "Mission & Vision",
     intro: "Why we exist, and the promise we make to every customer.",
     blocks: [
-      { type: "heading", text: "Vision" },
-      { type: "callout", text: "To be the best producers of cement in our region." },
-      { type: "heading", text: "Mission" },
       {
-        type: "callout",
-        text: "We are fully committed to provide our loyal customers with a conclusive product of supreme quality at competitive price with on-time delivery for their ultimate cost-effective value additions.",
+        type: "columns",
+        items: [
+          {
+            heading: "Our Vision",
+            body: ["To be the best producers of cement in our region."],
+          },
+          {
+            heading: "Our Mission",
+            body: [
+              "We are fully committed to provide our loyal customers with:",
+              "“A conclusive product of supreme quality at competitive price with on-time delivery for their ultimate cost effective value additions”.",
+            ],
+          },
+        ],
       },
     ],
   },
@@ -90,22 +107,22 @@ export const PAGES: Record<string, PageContent> = {
 
   "about/ethics": {
     eyebrow: "About",
-    title: "Ethics & Values",
-    intro: "Ten core values guide every decision and every dealing at Najran Cement.",
+    title: "Ethics",
+    intro: "The company has a set of values that govern the work performance, namely:",
     blocks: [
       {
         type: "values",
         items: [
-          { term: "Excellence", desc: "Leadership in all products and services offered to our customers." },
-          { term: "Client Focus", desc: "Products and services that exceed the expectations of customers and stakeholders." },
+          { term: "Excellence", desc: "The quest for the company's leadership in all its products and services offered to their customers." },
+          { term: "Focusing on the client", desc: "Providing products and services that would exceed the expectations of both; our customers and our stakeholders from inside and outside the company." },
           { term: "Team Spirit", desc: "Teamwork, fair competition, innovation and excellence in performance." },
-          { term: "Confidence", desc: "Partnership built on trust and cooperation between management and employees." },
-          { term: "Loyalty", desc: "Pride in being part of the company, supporting economic goals and environmental protection." },
-          { term: "Human Resources", desc: "Employees are our most valuable asset, deserving an environment for learning, innovation and growth." },
-          { term: "Ethical Conduct", desc: "Adherence to the standards and ethics of professional conduct in all our dealings." },
-          { term: "Honesty", desc: "Truthfulness, sincerity and transparency across all business interactions." },
-          { term: "Social Responsibility", desc: "Communication and cooperation with our local community, and compliance with laws and regulations." },
-          { term: "Corporate Commitment", desc: "Preserving company assets and avoiding any action that could cause organizational harm." },
+          { term: "Confidence", desc: "Building a partnership based on trust and cooperation between the management team and employees in the company's various managerial and technical positions." },
+          { term: "Loyalty", desc: "Taking pride in being part of the company and its main role in supporting the economical objectives along with reserving and protecting nature." },
+          { term: "Taking pride in our Human Resources", desc: "As it is considered as the most valuable asset we have. We should also provide it with a proper environment for learning, innovation, and constant development on both the personal level and career level." },
+          { term: "Righteousness and ethical behaviour", desc: "Commitment to the standards and ethics of professional conduct in all our dealings." },
+          { term: "Honesty and candor", desc: "Honesty, truthfulness, sincerity and transparency in all our dealings along with performing our duties and taking responsibility on both our personal and career levels." },
+          { term: "Social Responsibility", desc: "Communication and cooperation with our local community and compliance with regulations and laws that govern our relations." },
+          { term: "Commitment to the company", desc: "Preserving the company assets, its property and facilities and the pursuit of all that might interest the company as well as avoiding anything that may lead to any harm." },
         ],
       },
     ],
@@ -115,27 +132,27 @@ export const PAGES: Record<string, PageContent> = {
     eyebrow: "About",
     title: "Quality Policy",
     intro:
-      "Customer satisfaction, employee wellbeing, environmental protection, continual improvement, business ethics and excellence are the cardinal principles of our corporate philosophy.",
+      "Customer satisfaction, employees wellbeing, environmental protection, continual improvement, business ethics and excellence are cardinal principles of our corporate philosophy.",
     blocks: [
       {
         type: "paragraph",
-        text: "We operate an integrated management strategy addressing quality, environment and safety together. Our policy commits us to:",
+        text: "We adopt an integrated approach in managing Quality, Environment and Safety. Our policies include:",
       },
       {
         type: "list",
         items: [
-          "Implementing environmentally responsible technology and procedures",
-          "Continually developing the skills and expertise of our people",
-          "Waste reduction, recycling and responsible disposal",
+          "Adopting environmentally safe technology and processes,",
+          "Continuous upgradation of skill and competence of our employees,",
+          "Reduction, recycling and safe disposal of wastes,",
           "Conservation of natural resources",
-          "Adherence to relevant standards and regulatory requirements",
-          "Performance measurement, monitoring and systematic improvement",
-          "Open communication with all stakeholders",
+          "Compliance to applicable standards and regulations,",
+          "Measure, monitor, and continually improve our performance",
+          "Maintain transparency with stakeholders",
         ],
       },
       {
-        type: "callout",
-        text: "Our standards are reinforced by TÜV and SASO credentials and Saudi Authorized Economic Operator (AEO) status.",
+        type: "standards",
+        items: ["TÜV NORD — ISO 9001 / ISO 14001", "SASO Quality Mark", "Saudi Authorized Economic Operator (AEO)"],
       },
     ],
   },
@@ -144,56 +161,86 @@ export const PAGES: Record<string, PageContent> = {
   products: {
     eyebrow: "Products",
     title: "Our Cement",
-    intro: "A complete portfolio engineered for the Kingdom's most demanding construction.",
+    intro: "Najran Cement manufactures a complete range of cement for the Kingdom's construction needs.",
     blocks: [
-      { type: "heading", text: "Type I — Ordinary Portland Cement (OPC)" },
       {
-        type: "paragraph",
-        text: "Ordinary high-strength cement designed for structural works, foundations and prestressed concrete industries, delivering high durability and optimal strength.",
+        type: "media",
+        src: "/images/products/opc.jpg",
+        alt: "Najran Cement OPC bag",
+        heading: "Type I — Ordinary Portland Cement (OPC)",
+        paras: [
+          "Ordinary High-Strength Cement:",
+          "Characterized by high durability and optimal strength, it is ideal for all structural concrete works, foundations, and all prestressed and precast concrete industries.",
+        ],
       },
-      { type: "heading", text: "Type V — Portland Sulphate Resistant Cement (SRC)" },
       {
-        type: "paragraph",
-        text: "High-strength sulphate-resistant cement for applications in direct contact with soils of high sulphate content, as well as dams and tunnels.",
+        type: "media",
+        src: "/images/products/src.jpg",
+        alt: "Najran Cement SRC bag",
+        heading: "Type V — Portland Sulphate Resistant Cement (SRC)",
+        paras: [
+          "High-Strength Sulfate-Resistant Cement:",
+          "Used in all applications involving direct contact with soils with high sulfate content, as well as in dams and tunnels.",
+        ],
       },
-      { type: "heading", text: "Portland Pozzolanic Cement (PPC)" },
       {
-        type: "paragraph",
-        text: "Used in reinforced buildings, water tanks, finishings and general construction and building works.",
+        type: "media",
+        src: "/images/products/ppc.jpg",
+        alt: "Najran Cement PPC bag",
+        heading: "Portland Pozzolanic Cement (PPC)",
+        paras: [
+          "It is used in all types of concrete constructions, such as reinforce buildings, water tanks, finishings, and all construction and building works.",
+        ],
       },
-      { type: "heading", text: "Lyasah & Lyasah Plus Cement" },
       {
-        type: "paragraph",
-        text: "For internal and external plastering, roughcasting, block installation and finishing applications.",
+        type: "media",
+        src: "/images/products/lyasah.jpg",
+        alt: "Najran Cement Lyasah bag",
+        heading: "Lyasah Cement",
+        paras: ["It is used for internal and external plastering, roughcasting, block installation, and all types of finishing."],
       },
-      { type: "heading", text: "Eco-Friendly Cement — Turbo (upcoming)" },
       {
-        type: "paragraph",
-        text: "A lower-footprint cement produced with alternative materials and waste recycling, reducing carbon impact.",
+        type: "media",
+        src: "/images/products/lyasah-plus.jpg",
+        alt: "Najran Cement Lyasah Plus bag",
+        heading: "Lyasah Plus Cement",
+        paras: ["It is used for internal and external plastering, roughcasting, block installation, and all types of finishing."],
       },
+      {
+        type: "table",
+        columns: ["Saudi Standards", "British Standards", "American Standards"],
+        rows: [
+          ["SASO GSO 1914 / 2009", "BS – EN: 197-1: 2011", "ASTM – C150"],
+          ["SASO ASTM C595 / 2021", "", "ASTM – C595"],
+        ],
+      },
+      { type: "cta", label: "Get the quote", href: "/#contact" },
     ],
   },
 
   "products/specifications": {
     eyebrow: "Products",
-    title: "Specifications & Standards",
-    intro: "Every product conforms to recognized Saudi, British and American standards.",
+    title: "Specifications and Standards",
+    intro:
+      "The company manufactures all of its products with high quality, meeting all local, Gulf, and international specifications. It follows the best global practices in quality measurement.",
     blocks: [
       {
-        type: "standards",
-        items: [
-          "SASO GSO 1914/2009",
-          "SASO ASTM C595/2021",
-          "BS EN 197-1:2011",
-          "ASTM C150",
-          "ASTM C595",
+        type: "paragraph",
+        text: "The company has also obtained the Saudi Quality Mark on its products, aiming to meet project requirements and align with consumer expectations.",
+      },
+      {
+        type: "table",
+        columns: ["Saudi Standards", "British Standards", "American Standards"],
+        rows: [
+          ["SASO GSO 1914 / 2009", "BS – EN: 197-1: 2011", "ASTM – C150"],
+          ["SASO ASTM C595 / 2021", "", "ASTM – C595"],
         ],
       },
       {
-        type: "callout",
-        text: "Detailed technical datasheets per product are available on request from our engineering team.",
-        review: true,
+        type: "standards",
+        items: ["SASO Quality Mark", "ASTM International", "TÜV NORD — ISO 9001 / ISO 14001"],
       },
+      { type: "cta", label: "Get the quote", href: "/#contact" },
     ],
   },
 
@@ -202,32 +249,42 @@ export const PAGES: Record<string, PageContent> = {
     eyebrow: "Services",
     title: "Wasel Service",
     intro:
-      "The first-of-its-kind app among Saudi cement companies — an integrated electronic service for selling and delivering cement to business clients.",
+      "Wasel App — an integrated electronic service for ordering, delivering and receiving cement with speed and professionalism.",
     blocks: [
+      { type: "heading", text: "About the Service" },
       {
         type: "paragraph",
-        text: "Wasel streamlines cement purchasing for corporate customers: order and delivery through automated systems, a direct customer relationship without intermediaries, and convenient, professional transactions.",
+        text: "The first-of-its-kind application among Saudi cement companies, offering an integrated electronic service for selling and delivering cement to the company's business customers (companies and institutions). The application aims to enable customers to benefit from the “Wasel” service, facilitating the process of ordering, delivering, and receiving cement with speed and professionalism.",
       },
-      { type: "heading", text: "How it works" },
+      { type: "heading", text: "Objectives" },
       {
-        type: "paragraph",
-        text: "Download the Wasel app (Android and iOS), then place cement orders digitally. The platform offers real-time order tracking, 24/7 customer support and a dedicated fleet for rapid delivery. Orders can be scheduled immediately or for the future, with each delivery documented by a digital code for secure verification.",
+        type: "list",
+        items: [
+          "To provide a delivery service that meets customer requirements with ease and convenience.",
+          "To offer Wasel service through automated systems and digital applications for fast and reliable delivery.",
+          "To build a sustainable relationship with customers directly, without intermediaries, through Wasel service.",
+        ],
       },
       { type: "heading", text: "Features" },
       {
         type: "list",
         items: [
-          "One-click ordering",
-          "Intelligent digital infrastructure for a seamless experience",
-          "Around-the-clock information availability",
-          "Direct company-to-customer communication",
-          "Delivery confirmation through digital coding",
+          "Wasel service enables fast cement delivery with just a click.",
+          "It relies on an intelligent digital system, offering a seamless and quick customer experience via the Wasel app.",
+          "A new fleet of trucks ensures high-speed delivery of customer orders.",
+          "The Wasel app provides customers with information 24/7, all days of the week.",
+          "Wasel service features order tracking until the delivery reaches the customer's location.",
+          "The app allows for current orders and scheduling future orders at any time, ensuring immediate and fast delivery.",
+          "Wasel service enables direct interaction between customers and the company without intermediaries, ensuring fair transactions.",
+          "Wasel service documents the delivery process with a digital code to ensure secure and reliable receipt.",
         ],
       },
+      { type: "heading", text: "Download the Wasel App" },
       {
         type: "paragraph",
-        text: "Register through the service portal, then download Wasel from Google Play or the App Store.",
+        text: "For Android devices, download the app from the Google Play Store. For iPhone (iOS) devices, download it from the App Store.",
       },
+      { type: "cta", label: "Registration in the Service", href: "/#contact" },
     ],
   },
 
@@ -302,19 +359,8 @@ export const PAGES: Record<string, PageContent> = {
   "suppliers/become-a-supplier": {
     eyebrow: "Suppliers",
     title: "Become a Supplier",
-    intro: "Join the Najran Cement supply network.",
-    blocks: [
-      {
-        type: "paragraph",
-        text: "We partner with reliable suppliers across raw materials, equipment, logistics and services. To register your interest, contact our procurement team.",
-      },
-      {
-        type: "callout",
-        text: "Supplier registration form / portal to be confirmed with the client.",
-        review: true,
-      },
-      { type: "contact" },
-    ],
+    intro: "Please fulfil the form below to join the Najran Cement supply network.",
+    blocks: [{ type: "form" }],
   },
 
   /* ---------------- CAREER ---------------- */

@@ -12,7 +12,7 @@ const BARS = [38, 52, 44, 66, 58, 72, 64, 80, 70, 86, 78, 92];
 
 export function HeroMockup() {
   return (
-    <div className="w-full overflow-hidden rounded-2xl border border-line bg-white shadow-[0_40px_120px_-40px_rgba(16,24,40,0.45)]">
+    <div className="w-full overflow-hidden rounded-2xl border border-line bg-white shadow-[0_24px_70px_-32px_rgba(16,24,40,0.32)]">
       {/* Window bar */}
       <div className="flex items-center justify-between border-b border-line bg-coal/60 px-4 py-3">
         <div className="flex items-center gap-1.5">

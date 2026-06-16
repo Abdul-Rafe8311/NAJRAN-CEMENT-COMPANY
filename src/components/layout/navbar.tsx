@@ -29,11 +29,11 @@ export function Navbar() {
         animate={{
           y: 0,
           opacity: 1,
-          maxWidth: scrolled ? 940 : 1320,
+          maxWidth: scrolled ? 1200 : 1320,
           paddingTop: scrolled ? 8 : 14,
           paddingBottom: scrolled ? 8 : 14,
           borderRadius: scrolled ? 999 : 0,
-          backgroundColor: scrolled ? "rgba(255,255,255,0.82)" : "rgba(255,255,255,0)",
+          backgroundColor: scrolled ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.9)",
           borderColor: scrolled ? "rgba(230,232,236,1)" : "rgba(230,232,236,0)",
           boxShadow: scrolled
             ? "0 12px 40px -14px rgba(16,24,40,0.22)"
@@ -44,7 +44,7 @@ export function Navbar() {
           opacity: { delay: 0.2, duration: 0.7 },
           default: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
         }}
-        className="mt-3 flex w-full items-center justify-between gap-6 border px-4 backdrop-blur-xl md:px-6"
+        className="mt-3 flex w-full items-center justify-between gap-3 border px-4 md:px-5"
       >
         <Link href="/" className="shrink-0" aria-label="Najran Cement — home">
           <Image
@@ -69,7 +69,7 @@ export function Navbar() {
               <Link
                 href={item.href}
                 className={cn(
-                  "flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors",
+                  "flex items-center gap-1 whitespace-nowrap px-2.5 py-2 text-sm font-medium transition-colors",
                   isActive(item) ? "text-kiln" : "text-bone/80 hover:text-bone"
                 )}
               >

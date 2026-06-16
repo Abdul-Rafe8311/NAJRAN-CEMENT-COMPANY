@@ -8,7 +8,7 @@ import { ReviewBadge } from "@/components/ui/review-badge";
 
 export function Investors() {
   return (
-    <section id="investors" className="relative border-t border-line py-28 md:py-36">
+    <section id="investors" className="relative border-t border-line bg-gradient-to-b from-[#f7f5f2] to-white py-28 md:py-36">
       <div className="container-page">
         <SectionHeading
           eyebrow="Investor Confidence"
