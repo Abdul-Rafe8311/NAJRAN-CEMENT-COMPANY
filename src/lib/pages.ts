@@ -411,53 +411,39 @@ export const PAGES: Record<string, PageContent> = {
     eyebrow: "Social Responsibility",
     title: "Society",
     intro:
-      "We take it upon ourselves to be one of the main pillars in the region, supporting social, charitable, cultural and sports activities.",
+      "Commitment and our belief in our responsibility towards the society we take upon ourselves to be one of the main pillars in the region that contribute to the support and care of many social, charitable, cultural and sports activities.",
     blocks: [
       {
-        type: "values",
-        items: [
-          { term: "Charitable work", desc: "A principal donor to regional charities, providing annual financial support." },
-          { term: "Cultural & tourism", desc: "Primary sponsor of numerous cultural and tourism events across the region each year." },
-          { term: "Sports", desc: "A longstanding tradition of backing sports clubs in the area." },
-          { term: "Arts & literature", desc: "Support for literary organizations, cultural societies and arts institutions." },
-        ],
+        type: "paragraph",
+        text: "The company is a main backer of all charities in the region, and provide them with annual donations, and contribute as the main sponsor of many cultural and tourist activities that are held annually in the region. The company also has a long history of supporting sports clubs, and specializes in culture and literature status Semitic show through support literary clubs and Society culture and the arts in the region.",
       },
     ],
-  },
-
-  "social-responsibility/activities": {
-    eyebrow: "Social Responsibility",
-    title: "Activities",
-    intro: "Community programs, sponsorships and events supported by Najran Cement.",
-    blocks: [
-      {
-        type: "callout",
-        text: "Activities gallery and event highlights to be migrated from the current site. Pending client content.",
-        review: true,
-      },
-    ],
-    review: true,
   },
 
   "social-responsibility/safety": {
     eyebrow: "Social Responsibility",
     title: "Safety",
     intro:
-      "Occupational health and safety is integral to our business. We treat our employees as valuable assets and maintain comprehensive health insurance and social security coverage.",
+      "Our success in Najran Cement Company depends on our ability to protect the health of our employees and being committed to continue improving the health and safety measurements. This prompt commitment is focused towards our customers, our employees, our shareholders and other related parties and the society in which we live and work.",
     blocks: [
-      { type: "heading", text: "Our commitments" },
       {
         type: "paragraph",
-        text: "We are committed to protecting the health of our employees and to continually improving health and safety measures — preventing workplace accidents and setting measurable environmental health and occupational safety objectives.",
+        text: "We consider people as our valuable assets. The company complies with the occupational safety procedures that ignite the performance of workforce. In addition, the workers and their families enjoy a comprehensive health insurance plan and social security system.",
       },
-      { type: "heading", text: "How we deliver it" },
+      { type: "heading", text: "Accordingly, we are committed to the following:" },
       {
-        type: "paragraph",
-        text: "We incorporate technical expertise into every aspect of environmental, occupational health and safety across our services and products. Management maintains direct, continuous contact with everyone involved in our operations to ensure understanding of and compliance with safety standards.",
+        type: "list",
+        items: [
+          "The protection of our employees and striving to improve the health, safety and security measures at all times.",
+          "Working harder to avoid accidents or any incidents that might cause any harm to health in general and career safety.",
+          "Setting goals for environmental health and occupational safety enable us to assess and measure the performance and results, and then take the appropriate actions for continuous improvement at all levels.",
+          "Using our technical expertise and our potentials in all aspects of environmental, occupational health and safety in the formulation of our services and introducing our products to our customers.",
+          "Direct and continuous contact with all those involved in our operations and to ensure their understanding of the policy and programs of environmental standards and occupational health and safety and reward those who follow them relentlessly.",
+        ],
       },
       {
-        type: "paragraph",
-        text: "We adhere to cement-manufacturing standards and all applicable legal requirements, review our policies regularly, and systematically address risk while delivering value to stakeholders.",
+        type: "callout",
+        text: "This policy must be reviewed regularly to ensure the continued validity. In addition to our commitment to the points mentioned above, the Company applied the standards for the manufacture of cement and all applicable laws and regulations. We also consider all that is crucial to the success of our business and helps us to minimize losses in a systematic and provide added value to all parties concerned.",
       },
     ],
   },
