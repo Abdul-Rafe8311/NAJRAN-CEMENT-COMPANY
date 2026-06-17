@@ -11,7 +11,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { COMPANY } from "@/lib/data";
-import { Typewriter } from "@/components/ui/typewriter";
+import { RevealHeadline } from "@/components/ui/reveal-headline";
 import { ParticleField } from "@/components/ui/particle-field";
 import { Counter } from "@/components/ui/counter";
 import { useLiteMode } from "@/hooks/use-lite-mode";
@@ -128,13 +128,12 @@ export function Hero() {
         </motion.div>
 
         <h1 className="font-display mt-7 max-w-5xl text-[clamp(3rem,9vw,7.5rem)] font-semibold leading-[0.94] tracking-[-0.035em] [text-shadow:0_2px_40px_rgba(0,0,0,0.5)]">
-          <Typewriter
+          <RevealHeadline
             segments={[
               { text: "Building the Kingdom, " },
               { text: "one tonne at a time.", highlight: true },
             ]}
             highlightClass="text-fire-grad"
-            cursorClass="bg-[#f5c56b]"
           />
         </h1>
 

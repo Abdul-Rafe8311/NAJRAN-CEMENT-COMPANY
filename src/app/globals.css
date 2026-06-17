@@ -178,6 +178,35 @@ html.lenis body {
   }
 }
 
+/* Lightweight word mask-reveal — pure CSS, GPU transform only.
+   Text is in the DOM from first paint; only the appearance animates. */
+@keyframes word-rise {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.reveal-word {
+  display: inline-block;
+  animation: word-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--rw-delay, 0ms);
+  will-change: transform;
+}
+@media (max-width: 767px) {
+  /* mobile: ~50% faster + half the stagger */
+  .reveal-word {
+    animation-duration: 0.4s;
+    animation-delay: calc(var(--rw-delay, 0ms) / 2);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-word {
+    animation: none;
+  }
+}
+
 @layer utilities {
   /* Bright fire gradient for headlines on dark backgrounds */
   .text-fire-grad {
