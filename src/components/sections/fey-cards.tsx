@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { Reveal } from "@/components/ui/reveal";
+import { useLiteMode } from "@/hooks/use-lite-mode";
 
 /**
  * Fey-style fan cards. A stacked deck of product cards that fans apart
@@ -34,7 +35,11 @@ const cardVariants: Variants = {
 };
 
 export function FeyCards() {
-  const [open, setOpen] = useState(false);
+  const lite = useLiteMode();
+  const [hovered, setHovered] = useState(false);
+  // On mobile/touch the deck is pre-fanned and static — no hover/click
+  // handlers (which conflict on touch and leave the fan stuck).
+  const open = lite || hovered;
 
   return (
     <section className="relative overflow-hidden border-t border-white/10 py-28 text-white md:py-40">
@@ -51,9 +56,9 @@ export function FeyCards() {
         <div
           className="relative mx-auto mt-16 flex h-[420px] max-w-4xl items-center justify-center"
           style={{ perspective: 1400 }}
-          onMouseEnter={() => setOpen(true)}
-          onMouseLeave={() => setOpen(false)}
-          onClick={() => setOpen((v) => !v)}
+          {...(lite
+            ? {}
+            : { onMouseEnter: () => setHovered(true), onMouseLeave: () => setHovered(false) })}
         >
           {/* Headline revealed behind the deck */}
           <h2 className="font-display pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 px-4 text-center text-[clamp(2rem,6vw,4.5rem)] font-semibold leading-[1.02]">
@@ -70,10 +75,10 @@ export function FeyCards() {
                 custom={i}
                 variants={cardVariants}
                 animate={open ? "open" : "closed"}
-                initial="closed"
+                initial={lite ? "open" : "closed"}
                 transition={{ type: "spring", stiffness: 220, damping: 26, mass: 0.7 }}
                 style={{ zIndex: CARDS.length - Math.abs(i - center), transformOrigin: "bottom center" }}
-                className="absolute left-1/2 top-1/2 -ml-[88px] -mt-[124px] h-[248px] w-[176px] overflow-hidden rounded-2xl border border-white/12 bg-[#0c1322]/90 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.7)] backdrop-blur-md"
+                className="absolute left-1/2 top-1/2 -ml-[88px] -mt-[124px] h-[248px] w-[176px] overflow-hidden rounded-2xl border border-white/12 bg-[#0c1322]/90 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.7)] lg:backdrop-blur-md"
               >
                 <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
                   <span className="font-display text-sm font-semibold tracking-tight text-[#f5c56b]">
@@ -103,7 +108,7 @@ export function FeyCards() {
         </div>
 
         <Reveal className="mt-10 text-center">
-          <p className="text-sm text-muted">Hover or tap to fan the deck</p>
+          <p className="text-sm text-white/40">{lite ? "Our complete cement range" : "Hover to fan the deck"}</p>
         </Reveal>
       </div>
     </section>

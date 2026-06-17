@@ -43,7 +43,7 @@ export function SocialHub() {
             show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
           }}
           whileHover={{ y: -6 }}
-          className="group relative flex flex-col items-center gap-2.5 rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-sm transition-colors duration-300 hover:border-[#f5c56b]/40 hover:bg-white/[0.07] md:p-5"
+          className="group relative flex flex-col items-center gap-2.5 rounded-2xl border border-white/10 bg-white/[0.04] p-4 transition-colors duration-300 hover:border-[#f5c56b]/40 hover:bg-white/[0.07] md:p-5 lg:backdrop-blur-sm"
         >
           {/* glow on hover */}
           <span className="pointer-events-none absolute inset-0 -z-10 rounded-2xl bg-[#f5c56b]/0 blur-xl transition-all duration-300 group-hover:bg-[#f5c56b]/20" />

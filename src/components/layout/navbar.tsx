@@ -42,7 +42,7 @@ export function Navbar() {
           opacity: { delay: 0.2, duration: 0.7 },
           default: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
         }}
-        className="mt-3 flex w-full items-center justify-between gap-3 rounded-full border border-white/10 px-3 backdrop-blur-xl md:px-4"
+        className="mt-3 flex w-full items-center justify-between gap-3 rounded-full border border-white/10 px-3 md:px-4 lg:backdrop-blur-xl"
       >
         <Link href="/" className="shrink-0" aria-label="Najran Cement — home">
           <span className="block rounded-xl bg-white px-2.5 py-1.5">
@@ -152,7 +152,7 @@ export function Navbar() {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="absolute left-4 right-4 top-[72px] xl:hidden"
           >
-            <div className="max-h-[72vh] overflow-y-auto rounded-3xl border border-white/10 bg-[#0c1322]/97 p-4 text-white shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)] backdrop-blur-xl">
+            <div className="max-h-[72vh] overflow-y-auto rounded-3xl border border-white/10 bg-[#0c1322] p-4 text-white shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)]">
               {NAV.map((item) => (
                 <div key={item.label} className="border-b border-white/10 last:border-0">
                   {item.children ? (

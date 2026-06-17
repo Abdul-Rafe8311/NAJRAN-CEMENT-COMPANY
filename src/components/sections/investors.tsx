@@ -24,7 +24,7 @@ export function Investors() {
         <RevealGroup className="mt-16 grid grid-cols-2 gap-5 lg:grid-cols-4">
           {INVESTOR_FACTS.map((f) => (
             <Reveal key={f.label}>
-              <div className="relative h-full rounded-[var(--radius-card)] border border-white/10 bg-white/[0.03] p-7 backdrop-blur-sm">
+              <div className="relative h-full rounded-[var(--radius-card)] border border-white/10 bg-white/[0.03] p-7 lg:backdrop-blur-sm">
                 <div className="font-display bg-gradient-to-br from-[#f5c56b] to-[#ff7a2d] bg-clip-text text-4xl font-semibold tracking-tight text-transparent md:text-5xl">
                   {f.review ? (
                     "—"

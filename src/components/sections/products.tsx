@@ -23,7 +23,7 @@ export function Products() {
               <motion.article
                 whileHover={{ y: -6 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-white/10 bg-white/[0.03] p-7 backdrop-blur-sm transition-colors duration-500 hover:border-[#f5c56b]/30 hover:bg-white/[0.05]"
+                className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-white/10 bg-white/[0.03] p-7 transition-colors duration-500 hover:border-[#f5c56b]/30 hover:bg-white/[0.05] lg:backdrop-blur-sm"
               >
                 <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-[#f5c56b]/15 blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                 <div className="flex items-center justify-between">
