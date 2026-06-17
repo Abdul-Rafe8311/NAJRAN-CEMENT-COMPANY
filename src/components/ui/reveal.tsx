@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useLiteMode } from "@/hooks/use-lite-mode";
 
 type Props = {
   children: React.ReactNode;
@@ -11,7 +12,8 @@ type Props = {
   as?: "div" | "section" | "li" | "span";
 };
 
-const variants: Variants = {
+// Desktop: fade + rise + de-blur. Mobile/lite: simple opacity+y (no blur).
+const fullVariants: Variants = {
   hidden: { opacity: 0, y: 28, filter: "blur(6px)" },
   show: (delay: number) => ({
     opacity: 1,
@@ -21,13 +23,22 @@ const variants: Variants = {
   }),
 };
 
-/** Fade + rise + de-blur reveal, triggered once on scroll. */
+const liteVariants: Variants = {
+  hidden: { opacity: 0, y: 14 },
+  show: (delay: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.35, ease: "easeOut", delay: Math.min(delay, 0.1) },
+  }),
+};
+
 export function Reveal({ children, className, delay = 0, as = "div" }: Props) {
+  const lite = useLiteMode();
   const MotionTag = motion[as];
   return (
     <MotionTag
       className={cn(className)}
-      variants={variants}
+      variants={lite ? liteVariants : fullVariants}
       custom={delay}
       initial="hidden"
       whileInView="show"
@@ -38,7 +49,6 @@ export function Reveal({ children, className, delay = 0, as = "div" }: Props) {
   );
 }
 
-/** Container that staggers its Reveal children. */
 export function RevealGroup({
   children,
   className,
@@ -48,17 +58,18 @@ export function RevealGroup({
   className?: string;
   stagger?: number;
 }) {
+  const lite = useLiteMode();
   return (
     <motion.div
       className={cn(className)}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: "-12%" }}
-      variants={{ show: { transition: { staggerChildren: stagger } } }}
+      variants={{ show: { transition: { staggerChildren: lite ? 0.03 : stagger } } }}
     >
       {children}
     </motion.div>
   );
 }
 
-export const revealItem: Variants = variants;
+export const revealItem: Variants = fullVariants;

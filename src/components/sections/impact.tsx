@@ -6,9 +6,11 @@ import { IMPACT_STATS } from "@/lib/data";
 import { Counter } from "@/components/ui/counter";
 import { TextReveal } from "@/components/ui/text-reveal";
 import { Reveal } from "@/components/ui/reveal";
+import { useLiteMode } from "@/hooks/use-lite-mode";
 
 export function Impact() {
   const ref = useRef<HTMLDivElement>(null);
+  const lite = useLiteMode();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const glow = useTransform(scrollYProgress, [0, 1], [-60, 60]);
 
@@ -20,7 +22,7 @@ export function Impact() {
     >
       <div className="bg-grid-dark pointer-events-none absolute inset-0 opacity-30" />
       <motion.div
-        style={{ y: glow }}
+        style={lite ? undefined : { y: glow }}
         className="pointer-events-none absolute -right-[5%] top-1/4 h-[50vh] w-[50vh] rounded-full bg-[#f5c56b]/[0.1] blur-[130px]"
       />
       <div className="pointer-events-none absolute -left-[5%] bottom-0 h-[40vh] w-[40vh] rounded-full bg-[#ff7a2d]/[0.08] blur-[120px]" />

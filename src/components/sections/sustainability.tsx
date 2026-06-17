@@ -6,9 +6,11 @@ import { SUSTAIN_POINTS, SUSTAIN_METRICS } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { ReviewBadge } from "@/components/ui/review-badge";
+import { useLiteMode } from "@/hooks/use-lite-mode";
 
 export function Sustainability() {
   const ref = useRef<HTMLDivElement>(null);
+  const lite = useLiteMode();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const yBlob = useTransform(scrollYProgress, [0, 1], [80, -80]);
 
@@ -20,7 +22,7 @@ export function Sustainability() {
     >
       {/* Living green-energy glow */}
       <motion.div
-        style={{ y: yBlob }}
+        style={lite ? undefined : { y: yBlob }}
         className="pointer-events-none absolute right-[-10%] top-1/4 h-[50vh] w-[50vh] rounded-full bg-[#1f7a5a]/25 blur-[130px]"
       />
 

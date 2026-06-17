@@ -24,8 +24,8 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       "ontouchstart" in window ||
       navigator.maxTouchPoints > 0;
 
-    // Native scrolling on touch + reduced-motion. No hijacking whatsoever.
-    if (prefersReduced || isTouch) return;
+    // Native scrolling on touch, reduced-motion, and any screen < 1024px.
+    if (prefersReduced || isTouch || window.innerWidth < 1024) return;
 
     gsap.registerPlugin(ScrollTrigger);
 

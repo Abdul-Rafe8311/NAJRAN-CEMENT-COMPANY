@@ -124,7 +124,7 @@ export function Assistant() {
         whileTap={{ scale: 0.94 }}
         className="fixed bottom-5 right-5 z-[140] grid h-14 w-14 place-items-center rounded-full bg-gradient-to-br from-kiln to-ember text-white shadow-[0_12px_40px_-8px_rgba(255,122,45,0.6)]"
       >
-        <span className="absolute inset-0 -z-10 animate-ping rounded-full bg-kiln/30" />
+        <span className="absolute inset-0 -z-10 hidden animate-ping rounded-full bg-kiln/30 lg:block" />
         <AnimatePresence mode="wait" initial={false}>
           {open ? (
             <motion.svg key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} width="22" height="22" viewBox="0 0 24 24" fill="none">

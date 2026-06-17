@@ -26,11 +26,11 @@ export function FinalCta() {
       <div className="bg-grid-dark pointer-events-none absolute inset-0 opacity-70" />
       {!lite && <ParticleField dark className="absolute inset-0 h-full w-full" />}
       <motion.div
-        style={{ opacity: glow }}
+        style={lite ? undefined : { opacity: glow }}
         className="pointer-events-none absolute bottom-[-20%] left-1/2 h-[70vh] w-[80vh] -translate-x-1/2 rounded-full bg-gradient-to-t from-[#e8431f]/40 to-[#ff7a2d]/20 blur-[150px]"
       />
 
-      <motion.div style={{ scale }} className="container-page relative text-center">
+      <motion.div style={lite ? undefined : { scale }} className="container-page relative text-center">
         <div className="glass-dark mx-auto inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white/70">
           <span className="h-1.5 w-1.5 rounded-full bg-[#ff7a2d]" />
           Let's work together

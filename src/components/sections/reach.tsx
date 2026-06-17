@@ -4,8 +4,10 @@ import { Globe } from "@/components/ui/globe";
 import { Counter } from "@/components/ui/counter";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
+import { useLiteMode } from "@/hooks/use-lite-mode";
 
 export function Reach() {
+  const lite = useLiteMode();
   return (
     <section id="reach" className="relative overflow-hidden border-t border-white/10 py-28 text-white md:py-36">
       <div className="pointer-events-none absolute right-[10%] top-1/2 h-[50vh] w-[50vh] -translate-y-1/2 rounded-full bg-[#1b3a6b]/30 blur-[140px]" />
@@ -41,7 +43,16 @@ export function Reach() {
         </div>
 
         <Reveal className="flex justify-center">
-          <Globe className="drop-shadow-[0_30px_80px_rgba(245,197,107,0.18)]" />
+          {lite ? (
+            // static globe substitute on mobile (no WebGL)
+            <div className="relative grid h-64 w-64 place-items-center rounded-full border border-white/10 bg-[radial-gradient(circle_at_35%_30%,#1b3a6b_0%,#0b1a30_60%,#05080f_100%)] sm:h-80 sm:w-80">
+              <div className="absolute inset-6 rounded-full border border-[#f5c56b]/20" />
+              <div className="absolute inset-14 rounded-full border border-white/5" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[#f5c56b] shadow-[0_0_16px_4px_rgba(245,197,107,0.5)]" />
+            </div>
+          ) : (
+            <Globe className="drop-shadow-[0_30px_80px_rgba(245,197,107,0.18)]" />
+          )}
         </Reveal>
       </div>
     </section>

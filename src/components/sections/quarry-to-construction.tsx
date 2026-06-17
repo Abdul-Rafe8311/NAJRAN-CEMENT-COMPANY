@@ -90,11 +90,58 @@ export function QuarryToConstruction() {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   useMotionValueEvent(scrollYProgress, "change", (p) => {
+    if (lite) return; // no scroll-driven state updates on mobile
     const i = Math.min(STAGES.length - 1, Math.floor(p * STAGES.length));
     if (i !== active) setActive(i);
   });
 
   const stage = STAGES[active];
+
+  // ---- Mobile / lite: simple stacked layout, no pinning, no scroll transforms ----
+  if (lite) {
+    return (
+      <section id="journey" className="relative bg-[#05080f] py-24">
+        <div className="container-page">
+          <div className="mb-10 flex items-center gap-2.5">
+            <span className="h-px w-8 bg-[#f5c56b]" />
+            <span className="text-xs font-medium uppercase tracking-[0.28em] text-[#f5c56b]">
+              The Signature Journey
+            </span>
+          </div>
+          <h2 className="font-display mb-10 text-3xl font-semibold text-white">
+            From Quarry <span className="text-[#f5c56b]">→</span> to Construction
+          </h2>
+
+          <div className="space-y-12">
+            {STAGES.map((s) => (
+              <motion.div
+                key={s.n}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              >
+                {s.image && (
+                  <div className="relative mb-5 aspect-[16/10] overflow-hidden rounded-[var(--radius-card)] border border-[#f5c56b]/20">
+                    <Image src={s.image} alt={s.title} fill sizes="100vw" className="object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#05080f]/70 to-transparent" />
+                    <span className="absolute left-4 top-4 grid h-9 w-9 place-items-center rounded-full border border-[#f5c56b]/40 bg-black/30 p-1.5 text-[#f5c56b]">
+                      {s.icon}
+                    </span>
+                  </div>
+                )}
+                <div className="flex items-baseline gap-3">
+                  <span className="font-display text-2xl font-bold text-white/15">{s.n}</span>
+                  <h3 className="font-display text-xl font-semibold text-white">{s.title}</h3>
+                </div>
+                <p className="mt-2 text-sm leading-relaxed text-white/60">{s.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section ref={ref} id="journey" className="relative bg-[#05080f]" style={{ height: `${STAGES.length * 100}vh` }}>

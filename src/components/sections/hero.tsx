@@ -58,9 +58,12 @@ export function Hero() {
       onMouseMove={onMouse}
       className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#05080f] text-white"
     >
-      {/* ---- Cinematic industrial scene ---- */}
-      <motion.div style={{ y: photoY }} className="absolute inset-0">
-        <motion.div style={{ scale: photoScale, x: photoMX, y: photoMY }} className="absolute inset-0">
+      {/* ---- Cinematic industrial scene (static image on mobile) ---- */}
+      <motion.div style={lite ? undefined : { y: photoY }} className="absolute inset-0">
+        <motion.div
+          style={lite ? undefined : { scale: photoScale, x: photoMX, y: photoMY }}
+          className="absolute inset-0"
+        >
           <Image
             src="/images/hero-plant.jpg"
             alt="Najran Cement plant illuminated at night"
@@ -110,13 +113,13 @@ export function Hero() {
 
       {/* ---- Content ---- */}
       <motion.div
-        style={{ y: contentY, opacity: contentOpacity }}
+        style={lite ? undefined : { y: contentY, opacity: contentOpacity }}
         className="container-page relative z-10 w-full pt-28 pb-44 md:pt-24 md:pb-52"
       >
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
+          initial={lite ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.4, duration: 0.7 }}
+          transition={lite ? { duration: 0 } : { delay: 1.4, duration: 0.7 }}
         >
           <span className="glass-dark inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white/80">
             <span className="relative flex h-2 w-2">
@@ -138,9 +141,9 @@ export function Hero() {
         </h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 16 }}
+          initial={lite ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.8 }}
+          transition={lite ? { duration: 0 } : { delay: 1.6, duration: 0.8 }}
           className="mt-8 max-w-xl text-base leading-relaxed text-white/70 md:text-lg"
         >
           For over two decades, {COMPANY.name} has produced premium cement at industrial
@@ -148,9 +151,9 @@ export function Hero() {
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={lite ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.74, duration: 0.8 }}
+          transition={lite ? { duration: 0 } : { delay: 1.74, duration: 0.8 }}
           className="mt-10 flex flex-wrap items-center gap-4"
         >
           <Link
@@ -173,9 +176,9 @@ export function Hero() {
 
       {/* ---- Floating cinematic metric panels ---- */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={lite ? false : { opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        transition={lite ? { duration: 0 } : { delay: 2, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         className="absolute inset-x-0 bottom-14 z-10 md:bottom-16"
       >
         <div className="container-page">

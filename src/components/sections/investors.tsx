@@ -5,8 +5,11 @@ import { Counter } from "@/components/ui/counter";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { RevealGroup, Reveal } from "@/components/ui/reveal";
 import { ReviewBadge } from "@/components/ui/review-badge";
+import { useLiteMode } from "@/hooks/use-lite-mode";
+import { cn } from "@/lib/utils";
 
 export function Investors() {
+  const lite = useLiteMode();
   return (
     <section id="investors" className="relative overflow-hidden border-t border-white/10 py-28 text-white md:py-36">
       <div className="pointer-events-none absolute left-0 top-0 h-[40vh] w-[40vh] rounded-full bg-[#1b3a6b]/25 blur-[130px]" />
@@ -41,10 +44,17 @@ export function Investors() {
           ))}
         </RevealGroup>
 
-        {/* Certifications marquee */}
-        <div className="mt-12 overflow-hidden rounded-full border border-white/10 bg-white/[0.03] py-4">
-          <div className="flex animate-[marquee_28s_linear_infinite] gap-12 whitespace-nowrap pr-12">
-            {[...CERTIFICATIONS, ...CERTIFICATIONS].map((c, i) => (
+        {/* Certifications — marquee on desktop, static wrap on mobile */}
+        <div className="mt-12 overflow-hidden rounded-[var(--radius-card)] border border-white/10 bg-white/[0.03] px-6 py-4 md:rounded-full">
+          <div
+            className={cn(
+              "gap-x-10 gap-y-3",
+              lite
+                ? "flex flex-wrap justify-center"
+                : "flex animate-[marquee_28s_linear_infinite] gap-12 whitespace-nowrap pr-12"
+            )}
+          >
+            {(lite ? CERTIFICATIONS : [...CERTIFICATIONS, ...CERTIFICATIONS]).map((c, i) => (
               <span
                 key={i}
                 className="flex items-center gap-3 text-sm font-medium uppercase tracking-wider text-white/60"

@@ -194,15 +194,21 @@ html.lenis body {
   animation-delay: var(--rw-delay, 0ms);
   will-change: transform;
 }
-@media (max-width: 767px) {
-  /* mobile: ~50% faster + half the stagger */
+@media (max-width: 1023px) {
+  /* mobile/tablet: headline renders instantly — no word animation */
   .reveal-word {
-    animation-duration: 0.4s;
-    animation-delay: calc(var(--rw-delay, 0ms) / 2);
+    animation: none;
+  }
+  /* stop the continuously shifting gradient text on mobile */
+  .text-grad-anim {
+    animation: none;
   }
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal-word {
+    animation: none;
+  }
+  .text-grad-anim {
     animation: none;
   }
 }
