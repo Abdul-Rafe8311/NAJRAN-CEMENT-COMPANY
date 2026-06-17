@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useLiteMode } from "@/hooks/use-lite-mode";
@@ -10,6 +11,9 @@ type Stage = {
   title: string;
   desc: string;
   icon: React.ReactNode;
+  /** Real company photo for this stage. Drop files in /public/images/journey
+   *  and set the path here to replace the icon. */
+  image?: string;
 };
 
 const S = (children: React.ReactNode) => (
@@ -40,6 +44,7 @@ const STAGES: Stage[] = [
   {
     n: "04",
     title: "Kiln Production",
+    image: "/images/hero-plant.jpg",
     desc: "Inside the rotary kiln, raw meal is fired to clinkering temperature — around 1,450°C — and transformed into clinker, the heart of cement.",
     icon: S(<><path d="M60 100 C40 84, 44 64, 56 56 C54 70, 64 72, 66 60 C76 70, 80 86, 60 100 Z" stroke="currentColor" strokeWidth="2.5" /><path d="M20 100 L100 100" stroke="currentColor" strokeWidth="2.5" /></>),
   },
@@ -52,12 +57,14 @@ const STAGES: Stage[] = [
   {
     n: "06",
     title: "Packaging",
+    image: "/images/products/opc.jpg",
     desc: "Bagged and bulk cement — OPC, SRC, PPC and Lyasah — packed to a consistent, trusted standard.",
     icon: S(<><path d="M40 30 L80 30 L86 100 L34 100 Z" stroke="currentColor" strokeWidth="2.5" /><path d="M52 30 L52 22 L68 22 L68 30" stroke="currentColor" strokeWidth="2.5" /><path d="M48 56 L72 56" stroke="currentColor" strokeWidth="2" /><path d="M48 70 L72 70" stroke="currentColor" strokeWidth="2" /></>),
   },
   {
     n: "07",
     title: "Distribution",
+    image: "/images/plant-full.jpg",
     desc: "39+ distribution centers move cement across the southern region and beyond — a connected logistics network.",
     icon: S(<><path d="M18 44 L66 44 L66 84 L18 84 Z" stroke="currentColor" strokeWidth="2.5" /><path d="M66 56 L86 56 L100 72 L100 84 L66 84 Z" stroke="currentColor" strokeWidth="2.5" /><circle cx="38" cy="90" r="8" stroke="currentColor" strokeWidth="2.5" /><circle cx="86" cy="90" r="8" stroke="currentColor" strokeWidth="2.5" /></>),
   },
@@ -134,21 +141,48 @@ export function QuarryToConstruction() {
               </div>
             </div>
 
-            {/* Icon stage */}
-            <div className="relative hidden h-[46vh] items-center justify-center lg:flex">
+            {/* Visual stage — real photo where available, gold icon otherwise */}
+            <div className="relative hidden h-[48vh] items-center justify-center lg:flex">
               <div className="absolute h-[34vh] w-[34vh] rounded-full bg-[#ff7a2d]/10 blur-[80px]" />
               <AnimatePresence mode="wait">
-                <motion.div
-                  key={active}
-                  style={{ y: iconY }}
-                  initial={{ opacity: 0, scale: 0.85, rotate: -6 }}
-                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                  exit={{ opacity: 0, scale: 1.1 }}
-                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative h-[30vh] w-[30vh] text-[#f5c56b] drop-shadow-[0_0_40px_rgba(245,197,107,0.35)]"
-                >
-                  {stage.icon}
-                </motion.div>
+                {stage.image ? (
+                  <motion.div
+                    key={active}
+                    style={{ y: iconY }}
+                    initial={{ opacity: 0, scale: 1.06 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.04 }}
+                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative h-[44vh] w-full max-w-[540px] overflow-hidden rounded-[var(--radius-card)] border border-[#f5c56b]/25 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.8)]"
+                  >
+                    <Image
+                      src={stage.image}
+                      alt={stage.title}
+                      fill
+                      sizes="(max-width: 1024px) 0px, 45vw"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#05080f]/75 via-transparent to-[#05080f]/10" />
+                    <span className="absolute left-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-[#f5c56b]/40 bg-black/30 p-2 text-[#f5c56b] backdrop-blur-sm">
+                      {stage.icon}
+                    </span>
+                    <span className="absolute bottom-5 left-5 font-display text-sm font-medium tracking-tight text-white/90">
+                      {stage.title}
+                    </span>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key={active}
+                    style={{ y: iconY }}
+                    initial={{ opacity: 0, scale: 0.85, rotate: -6 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    exit={{ opacity: 0, scale: 1.1 }}
+                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative h-[30vh] w-[30vh] text-[#f5c56b] drop-shadow-[0_0_40px_rgba(245,197,107,0.35)]"
+                  >
+                    {stage.icon}
+                  </motion.div>
+                )}
               </AnimatePresence>
             </div>
           </div>
