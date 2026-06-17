@@ -313,6 +313,17 @@ export const GALLERY: Slide[] = [
   { title: "Distribution & Dispatch", caption: "39+ distribution centers", src: "" },
 ];
 
+/* Social channels (URLs as provided by the client) */
+export type Social = { name: string; href: string; icon: string };
+export const SOCIAL_LINKS: Social[] = [
+  { name: "Facebook", href: "https://www.facebook.com/pages/1657398467815242", icon: "facebook" },
+  { name: "X", href: "https://twitter.com/najrancementco", icon: "x" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/company/najran-cement-company", icon: "linkedin" },
+  { name: "Instagram", href: "https://www.instagram.com/najrancement/", icon: "instagram" },
+  { name: "YouTube", href: "https://www.youtube.com/channel/UCNRPP4KsX_xmVP98V5cgn_g", icon: "youtube" },
+  { name: "WhatsApp", href: "https://wa.me/966501234567", icon: "whatsapp" },
+];
+
 /* Flat list of homepage in-page anchors (used by footer "explore") */
 export const FOOTER_EXPLORE = [
   { label: "Impact", href: "/#impact" },

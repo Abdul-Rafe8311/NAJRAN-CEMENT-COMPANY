@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { COMPANY } from "@/lib/data";
 import { TextReveal } from "@/components/ui/text-reveal";
 import { ParticleField } from "@/components/ui/particle-field";
+import { SocialHub } from "@/components/ui/social-hub";
 import { useLiteMode } from "@/hooks/use-lite-mode";
 
 export function FinalCta() {
@@ -71,6 +72,12 @@ export function FinalCta() {
             {COMPANY.phone}
           </a>
         </motion.div>
+
+        {/* Premium social hub */}
+        <p className="mt-16 text-xs font-medium uppercase tracking-[0.25em] text-white/40">
+          Connect with us
+        </p>
+        <SocialHub />
       </motion.div>
     </section>
   );
