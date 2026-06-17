@@ -35,7 +35,7 @@ export function ParticleField({ className, dark = false }: { className?: string;
       canvas.width = w * dpr;
       canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.min(90, Math.floor((w * h) / 16000));
+      const count = Math.min(48, Math.floor((w * h) / 28000));
       parts = Array.from({ length: count }, () => {
         const ember = Math.random() > 0.78;
         return {
@@ -75,26 +75,19 @@ export function ParticleField({ className, dark = false }: { className?: string;
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        // No shadowBlur — it's the most expensive canvas op. Brighter
+        // ember colors keep the glow read without per-particle blur.
         if (p.ember) {
-          if (dark) {
-            // glowing kiln embers on dark
-            ctx.fillStyle = `rgba(255, 138, 61, ${p.a + 0.15})`;
-            ctx.shadowColor = "rgba(255, 122, 45, 0.9)";
-            ctx.shadowBlur = 10;
-          } else {
-            ctx.fillStyle = `rgba(63, 143, 127, ${p.a})`;
-            ctx.shadowColor = "rgba(27, 58, 107, 0.5)";
-            ctx.shadowBlur = 6;
-          }
+          ctx.fillStyle = dark
+            ? `rgba(255, 150, 75, ${p.a + 0.25})`
+            : `rgba(63, 143, 127, ${p.a + 0.1})`;
         } else {
           ctx.fillStyle = dark
             ? `rgba(180, 200, 230, ${p.a * 0.5})`
             : `rgba(110, 124, 148, ${p.a * 0.5})`;
-          ctx.shadowBlur = 0;
         }
         ctx.fill();
       }
-      ctx.shadowBlur = 0;
       if (running) raf = requestAnimationFrame(draw);
     };
 

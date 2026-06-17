@@ -174,12 +174,6 @@ html.lenis body {
   }
 }
 
-@keyframes hue-pan {
-  to {
-    background-position: 200% 50%;
-  }
-}
-
 /* Lightweight word mask-reveal — pure CSS, GPU transform only.
    Text is in the DOM from first paint; only the appearance animates. */
 @keyframes word-rise {
@@ -241,20 +235,12 @@ html.lenis body {
     -webkit-backdrop-filter: blur(12px);
   }
 
-  /* Continuously shifting brand gradient text */
+  /* Static brand gradient text (shimmer animation removed for perf) */
   .text-grad-anim {
-    background: linear-gradient(
-      100deg,
-      var(--color-kiln),
-      var(--color-ember),
-      var(--color-concrete),
-      var(--color-kiln)
-    );
-    background-size: 200% auto;
+    background: linear-gradient(100deg, var(--color-kiln), var(--color-ember), var(--color-concrete));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: hue-pan 6s linear infinite;
   }
 }
 

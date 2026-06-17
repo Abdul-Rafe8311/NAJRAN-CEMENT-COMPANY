@@ -149,11 +149,7 @@ export function QuarryToConstruction() {
         {/* background */}
         <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_70%_30%,#11203c_0%,#0a1122_50%,#05080f_100%)]" />
         <div className="bg-grid-dark pointer-events-none absolute inset-0 opacity-40" />
-        <motion.div
-          className="pointer-events-none absolute right-[12%] top-1/3 h-[55vh] w-[55vh] rounded-full bg-[#f5c56b]/10 blur-[150px]"
-          animate={lite ? undefined : { opacity: [0.4, 0.7, 0.4] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
+        <div className="pointer-events-none absolute right-[12%] top-1/3 h-[55vh] w-[55vh] rounded-full bg-[#f5c56b]/10 opacity-60 blur-[150px]" />
 
         <div className="container-page relative w-full">
           {/* eyebrow */}

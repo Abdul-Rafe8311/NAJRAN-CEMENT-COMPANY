@@ -76,30 +76,19 @@ export function Hero() {
       </motion.div>
 
       {/* Dynamic sky glow (gold/amber) */}
+      {/* Static brand glows (mouse-parallax only; no idle animation) */}
       <motion.div
         style={{ x: glowMX, y: glowMY }}
-        className="pointer-events-none absolute -top-[15%] right-[8%] h-[55vh] w-[55vh] rounded-full bg-[#f5c56b]/15 blur-[150px]"
-        animate={lite ? undefined : { opacity: [0.5, 0.85, 0.5], scale: [1, 1.12, 1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute -top-[15%] right-[8%] h-[55vh] w-[55vh] rounded-full bg-[#f5c56b]/15 opacity-70 blur-[150px]"
       />
       <motion.div
         style={{ x: glowMY, y: glowMX }}
-        className="pointer-events-none absolute top-[20%] left-[-8%] h-[45vh] w-[45vh] rounded-full bg-[#ff7a2d]/15 blur-[150px]"
-        animate={lite ? undefined : { opacity: [0.4, 0.7, 0.4] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute top-[20%] left-[-8%] h-[45vh] w-[45vh] rounded-full bg-[#ff7a2d]/15 opacity-60 blur-[150px]"
       />
 
-      {/* Volumetric fog drifting at the base */}
-      <motion.div
-        className="pointer-events-none absolute bottom-0 left-0 h-[40vh] w-[70vw] rounded-full bg-white/[0.06] blur-[90px]"
-        animate={lite ? undefined : { x: [-40, 60, -40], opacity: [0.4, 0.6, 0.4] }}
-        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="pointer-events-none absolute bottom-[5%] right-0 h-[35vh] w-[60vw] rounded-full bg-[#9fb3c8]/[0.05] blur-[100px]"
-        animate={lite ? undefined : { x: [40, -50, 40], opacity: [0.3, 0.55, 0.3] }}
-        transition={{ duration: 19, repeat: Infinity, ease: "easeInOut" }}
-      />
+      {/* Static volumetric fog at the base */}
+      <div className="pointer-events-none absolute bottom-0 left-0 h-[40vh] w-[70vw] rounded-full bg-white/[0.06] blur-[90px]" />
+      <div className="pointer-events-none absolute bottom-[5%] right-0 h-[35vh] w-[60vw] rounded-full bg-[#9fb3c8]/[0.05] blur-[100px]" />
 
       {/* Readability + cinematic grade */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#05080f] via-[#05080f]/45 to-[#05080f]/80" />
@@ -183,18 +172,16 @@ export function Hero() {
       >
         <div className="container-page">
           <div className="grid max-w-3xl grid-cols-3 gap-3 md:gap-5">
-            {METRICS.map((m, i) => (
-              <motion.div
+            {METRICS.map((m) => (
+              <div
                 key={m.label}
-                animate={lite ? undefined : { y: [0, -8, 0] }}
-                transition={{ duration: 4.5 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 }}
                 className="glass-dark rounded-2xl px-4 py-4 md:px-6 md:py-5"
               >
                 <div className="font-display bg-gradient-to-br from-[#f5c56b] to-[#ff7a2d] bg-clip-text text-2xl font-semibold tracking-tight text-transparent md:text-4xl">
                   <Counter value={m.v} suffix={m.suffix} />
                 </div>
                 <div className="mt-1.5 text-[11px] leading-tight text-white/70 md:text-sm">{m.label}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
