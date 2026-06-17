@@ -26,18 +26,21 @@ const STAGES: Stage[] = [
   {
     n: "01",
     title: "Mountain Quarry",
+    image: "/images/journey/01-quarry.jpg",
     desc: "It begins in the mountains. Reserves confirmed by geological survey hold the limestone, clay, sandstone and gypsum that become cement.",
     icon: S(<><path d="M10 95 L42 40 L62 70 L80 35 L110 95 Z" stroke="currentColor" strokeWidth="2.5" /><path d="M80 35 L88 50 L72 52 Z" stroke="currentColor" strokeWidth="2" /><circle cx="34" cy="28" r="6" stroke="currentColor" strokeWidth="2" /></>),
   },
   {
     n: "02",
     title: "Raw Material Extraction",
+    image: "/images/journey/02-extraction.jpg",
     desc: "Limestone and minerals are extracted from our reserves — the raw foundation of every tonne we produce.",
     icon: S(<><path d="M20 100 L60 60" stroke="currentColor" strokeWidth="3" /><path d="M44 44 C58 30, 82 30, 96 44" stroke="currentColor" strokeWidth="2.5" /><path d="M60 60 L70 50" stroke="currentColor" strokeWidth="3" /><path d="M18 100 L34 100" stroke="currentColor" strokeWidth="3" /></>),
   },
   {
     n: "03",
     title: "Crushing & Blending",
+    image: "/images/journey/03-crushing.jpg",
     desc: "Materials are crushed and blended to an exact chemistry — precision measured in fractions of a percent.",
     icon: S(<><circle cx="42" cy="48" r="20" stroke="currentColor" strokeWidth="2.5" /><circle cx="42" cy="48" r="7" stroke="currentColor" strokeWidth="2.5" /><circle cx="82" cy="64" r="14" stroke="currentColor" strokeWidth="2.5" /><circle cx="82" cy="64" r="5" stroke="currentColor" strokeWidth="2.5" /><path d="M30 90 L94 90" stroke="currentColor" strokeWidth="2.5" /></>),
   },
@@ -51,6 +54,7 @@ const STAGES: Stage[] = [
   {
     n: "05",
     title: "Quality Testing",
+    image: "/images/journey/05-quality.jpg",
     desc: "ISO, TÜV and SASO-aligned laboratories verify strength, fineness and consistency. Nothing leaves unverified.",
     icon: S(<><path d="M50 22 L50 50 L34 86 C30 96, 38 102, 48 102 L72 102 C82 102, 90 96, 86 86 L70 50 L70 22" stroke="currentColor" strokeWidth="2.5" /><path d="M44 22 L76 22" stroke="currentColor" strokeWidth="2.5" /><path d="M42 74 L78 74" stroke="currentColor" strokeWidth="2" /><circle cx="56" cy="86" r="3" fill="currentColor" /></>),
   },
@@ -71,6 +75,7 @@ const STAGES: Stage[] = [
   {
     n: "08",
     title: "Major Construction",
+    image: "/images/journey/08-construction.jpg",
     desc: "From foundations to skylines — Najran Cement builds the Kingdom, one tonne at a time.",
     icon: S(<><path d="M24 100 L24 50 L52 50 L52 100" stroke="currentColor" strokeWidth="2.5" /><path d="M52 100 L52 30 L92 30 L92 100" stroke="currentColor" strokeWidth="2.5" /><path d="M62 44 L72 44 M62 58 L72 58 M62 72 L72 72" stroke="currentColor" strokeWidth="2" /><path d="M32 64 L42 64 M32 80 L42 80" stroke="currentColor" strokeWidth="2" /><path d="M14 100 L104 100" stroke="currentColor" strokeWidth="2.5" /></>),
   },
