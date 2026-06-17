@@ -1,7 +1,13 @@
 "use client";
 
-import { Globe } from "@/components/ui/globe";
+import dynamic from "next/dynamic";
 import { Counter } from "@/components/ui/counter";
+
+// WebGL globe (cobe) is desktop-only, below the fold, and non-critical —
+// load it as its own chunk so it never blocks first paint.
+const Globe = dynamic(() => import("@/components/ui/globe").then((m) => m.Globe), {
+  ssr: false,
+});
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { useLiteMode } from "@/hooks/use-lite-mode";

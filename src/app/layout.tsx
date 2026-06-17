@@ -4,7 +4,7 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
-import { Assistant } from "@/components/chat/assistant";
+import { AssistantMount } from "@/components/chat/assistant-mount";
 import { COMPANY } from "@/lib/data";
 
 const inter = Inter({
@@ -62,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar />
           {children}
           <Footer />
-          <Assistant />
+          <AssistantMount />
         </SmoothScroll>
       </body>
     </html>

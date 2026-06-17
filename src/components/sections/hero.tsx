@@ -106,7 +106,7 @@ export function Hero() {
         className="container-page relative z-10 w-full pt-28 pb-44 md:pt-24 md:pb-52"
       >
         <motion.div
-          initial={lite ? false : { opacity: 0, y: 14 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={lite ? { duration: 0 } : { delay: 1.4, duration: 0.7 }}
         >
@@ -130,7 +130,7 @@ export function Hero() {
         </h1>
 
         <motion.p
-          initial={lite ? false : { opacity: 0, y: 16 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={lite ? { duration: 0 } : { delay: 1.6, duration: 0.8 }}
           className="mt-8 max-w-xl text-base leading-relaxed text-white/70 md:text-lg"
@@ -140,7 +140,7 @@ export function Hero() {
         </motion.p>
 
         <motion.div
-          initial={lite ? false : { opacity: 0, y: 16 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={lite ? { duration: 0 } : { delay: 1.74, duration: 0.8 }}
           className="mt-10 flex flex-wrap items-center gap-4"
@@ -165,7 +165,7 @@ export function Hero() {
 
       {/* ---- Floating cinematic metric panels ---- */}
       <motion.div
-        initial={lite ? false : { opacity: 0, y: 30 }}
+        initial={false}
         animate={{ opacity: 1, y: 0 }}
         transition={lite ? { duration: 0 } : { delay: 2, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         className="absolute inset-x-0 bottom-14 z-10 md:bottom-16"
