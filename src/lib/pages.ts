@@ -214,7 +214,7 @@ export const PAGES: Record<string, PageContent> = {
           ["SASO ASTM C595 / 2021", "", "ASTM – C595"],
         ],
       },
-      { type: "cta", label: "Get the quote", href: "/#contact" },
+      { type: "cta", label: "Get the quote", href: "/quote" },
     ],
   },
 
@@ -240,7 +240,7 @@ export const PAGES: Record<string, PageContent> = {
         type: "standards",
         items: ["SASO Quality Mark", "ASTM International", "TÜV NORD — ISO 9001 / ISO 14001"],
       },
-      { type: "cta", label: "Get the quote", href: "/#contact" },
+      { type: "cta", label: "Get the quote", href: "/quote" },
     ],
   },
 

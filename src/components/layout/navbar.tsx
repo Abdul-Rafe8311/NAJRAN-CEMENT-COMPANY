@@ -124,7 +124,7 @@ export function Navbar() {
 
         <div className="flex items-center gap-3">
           <Link
-            href="/#contact"
+            href="/quote"
             className="hidden rounded-full bg-gradient-to-r from-[#f5c56b] to-[#ff7a2d] px-5 py-2.5 text-sm font-semibold text-[#1a0f06] transition-transform hover:scale-[1.03] sm:inline-block"
           >
             Request a Quote
@@ -205,7 +205,7 @@ export function Navbar() {
                 </div>
               ))}
               <Link
-                href="/#contact"
+                href="/quote"
                 onClick={() => setMobileOpen(false)}
                 className="mt-5 block rounded-full bg-gradient-to-r from-[#f5c56b] to-[#ff7a2d] py-3 text-center font-semibold text-[#1a0f06]"
               >

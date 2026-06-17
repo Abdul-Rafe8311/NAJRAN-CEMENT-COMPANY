@@ -57,7 +57,7 @@ export function FinalCta() {
           className="mt-10 flex flex-wrap items-center justify-center gap-4"
         >
           <Link
-            href={`mailto:${COMPANY.email}`}
+            href="/quote"
             className="group inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[#ff7a2d] to-[#e8431f] px-8 py-4 text-sm font-semibold text-white shadow-[0_10px_40px_-10px_rgba(255,122,45,0.7)] transition-transform hover:scale-[1.03]"
           >
             Request a quote

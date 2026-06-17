@@ -157,7 +157,7 @@ export function Hero() {
           className="mt-10 flex flex-wrap items-center gap-4"
         >
           <Link
-            href="/#contact"
+            href="/quote"
             className="group relative inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[#f5c56b] via-[#ff7a2d] to-[#e8431f] px-8 py-4 text-sm font-semibold text-[#1a0f06] shadow-[0_10px_50px_-10px_rgba(245,197,107,0.7)] transition-transform hover:scale-[1.03]"
           >
             Request a quote
