@@ -1,16 +1,8 @@
 "use client";
 
-import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import {
-  motion,
-  useMotionValue,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
 import { COMPANY } from "@/lib/data";
 import { RevealHeadline } from "@/components/ui/reveal-headline";
 import { Counter } from "@/components/ui/counter";
@@ -29,70 +21,41 @@ const METRICS = [
   { v: 20, suffix: "+", label: "Years of excellence" },
 ];
 
+/**
+ * Hero — fully STATIC, no scroll-linked transforms/opacity.
+ *
+ * Above-the-fold content must render immediately and in place. A previous
+ * version faded the content via `useScroll` opacity, which mis-measures on
+ * iOS Safari (collapsing toolbar changes the viewport) and left the hero
+ * blank until a scroll event fired. All scroll/mouse parallax removed; the
+ * only JS enhancements are the (desktop-only, off-screen-paused) particle
+ * canvas and the number counters.
+ */
 export function Hero() {
-  const ref = useRef<HTMLDivElement>(null);
   const lite = useLiteMode();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-
-  // scroll-driven depth
-  const photoY = useTransform(scrollYProgress, [0, 1], [0, 140]);
-  const photoScale = useTransform(scrollYProgress, [0, 1], [1.05, 1.22]);
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, -90]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-
-  // mouse parallax
-  const mxv = useMotionValue(0);
-  const myv = useMotionValue(0);
-  const px = useSpring(mxv, { stiffness: 50, damping: 18 });
-  const py = useSpring(myv, { stiffness: 50, damping: 18 });
-  const photoMX = useTransform(px, (v) => v * -26);
-  const photoMY = useTransform(py, (v) => v * -18);
-  const glowMX = useTransform(px, (v) => v * 50);
-  const glowMY = useTransform(py, (v) => v * 50);
-
-  const onMouse = (e: React.MouseEvent) => {
-    const r = ref.current?.getBoundingClientRect();
-    if (!r) return;
-    mxv.set((e.clientX - (r.left + r.width / 2)) / r.width);
-    myv.set((e.clientY - (r.top + r.height / 2)) / r.height);
-  };
 
   return (
     <section
-      ref={ref}
       id="top"
-      onMouseMove={onMouse}
       className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#05080f] text-white"
     >
-      {/* ---- Cinematic industrial scene (static image on mobile) ---- */}
-      <motion.div style={lite ? undefined : { y: photoY }} className="absolute inset-0">
-        <motion.div
-          style={lite ? undefined : { scale: photoScale, x: photoMX, y: photoMY }}
-          className="absolute inset-0"
-        >
-          <Image
-            src="/images/hero-plant.jpg"
-            alt="Najran Cement plant illuminated at night"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-bottom"
-          />
-        </motion.div>
-      </motion.div>
+      {/* Cinematic industrial scene (static) */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/hero-plant.jpg"
+          alt="Najran Cement plant illuminated at night"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-bottom"
+        />
+      </div>
 
-      {/* Dynamic sky glow (gold/amber) */}
-      {/* Static brand glows (mouse-parallax only; no idle animation) */}
-      <motion.div
-        style={{ x: glowMX, y: glowMY }}
-        className="pointer-events-none absolute -top-[15%] right-[8%] h-[55vh] w-[55vh] rounded-full bg-[#f5c56b]/15 opacity-70 blur-[150px]"
-      />
-      <motion.div
-        style={{ x: glowMY, y: glowMX }}
-        className="pointer-events-none absolute top-[20%] left-[-8%] h-[45vh] w-[45vh] rounded-full bg-[#ff7a2d]/15 opacity-60 blur-[150px]"
-      />
+      {/* Static brand glows */}
+      <div className="pointer-events-none absolute -top-[15%] right-[8%] h-[55vh] w-[55vh] rounded-full bg-[#f5c56b]/15 opacity-70 blur-[150px]" />
+      <div className="pointer-events-none absolute left-[-8%] top-[20%] h-[45vh] w-[45vh] rounded-full bg-[#ff7a2d]/15 opacity-60 blur-[150px]" />
 
-      {/* Static volumetric fog at the base */}
+      {/* Static volumetric fog */}
       <div className="pointer-events-none absolute bottom-0 left-0 h-[40vh] w-[70vw] rounded-full bg-white/[0.06] blur-[90px]" />
       <div className="pointer-events-none absolute bottom-[5%] right-0 h-[35vh] w-[60vw] rounded-full bg-[#9fb3c8]/[0.05] blur-[100px]" />
 
@@ -103,19 +66,12 @@ export function Hero() {
 
       {!lite && <ParticleField dark className="absolute inset-0 h-full w-full" />}
 
-      {/* transition into the light page */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-b from-transparent to-white" />
+      {/* fade into the next (dark) section */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-b from-transparent to-[#05080f]" />
 
-      {/* ---- Content ---- */}
-      <motion.div
-        style={lite ? undefined : { y: contentY, opacity: contentOpacity }}
-        className="container-page relative z-10 w-full pt-28 pb-44 md:pt-24 md:pb-52"
-      >
-        <motion.div
-          initial={false}
-          animate={{ opacity: 1, y: 0 }}
-          transition={lite ? { duration: 0 } : { delay: 1.4, duration: 0.7 }}
-        >
+      {/* ---- Content (static, visible immediately) ---- */}
+      <div className="container-page relative z-10 w-full pt-28 pb-44 md:pt-24 md:pb-52">
+        <div>
           <span className="glass-dark inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white/80">
             <span className="relative flex h-2 w-2">
               <span className="absolute hidden h-2 w-2 animate-ping rounded-full bg-[#f5c56b] opacity-70 lg:inline-flex" />
@@ -123,7 +79,7 @@ export function Hero() {
             </span>
             {COMPANY.location} · Est. {COMPANY.established}
           </span>
-        </motion.div>
+        </div>
 
         <h1 className="font-display mt-7 max-w-5xl text-[clamp(3rem,9vw,7.5rem)] font-semibold leading-[0.94] tracking-[-0.035em] [text-shadow:0_2px_40px_rgba(0,0,0,0.5)]">
           <RevealHeadline
@@ -135,22 +91,12 @@ export function Hero() {
           />
         </h1>
 
-        <motion.p
-          initial={false}
-          animate={{ opacity: 1, y: 0 }}
-          transition={lite ? { duration: 0 } : { delay: 1.6, duration: 0.8 }}
-          className="mt-8 max-w-xl text-base leading-relaxed text-white/70 md:text-lg"
-        >
+        <p className="mt-8 max-w-xl text-base leading-relaxed text-white/70 md:text-lg">
           For over two decades, {COMPANY.name} has produced premium cement at industrial
           scale — building trust and delivering quality across the Kingdom and beyond.
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={false}
-          animate={{ opacity: 1, y: 0 }}
-          transition={lite ? { duration: 0 } : { delay: 1.74, duration: 0.8 }}
-          className="mt-10 flex flex-wrap items-center gap-4"
-        >
+        <div className="mt-10 flex flex-wrap items-center gap-4">
           <Link
             href="/quote"
             className="group relative inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[#f5c56b] via-[#ff7a2d] to-[#e8431f] px-8 py-4 text-sm font-semibold text-[#1a0f06] shadow-[0_10px_50px_-10px_rgba(245,197,107,0.7)] transition-transform hover:scale-[1.03]"
@@ -166,23 +112,15 @@ export function Hero() {
           >
             Explore our cement
           </Link>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
-      {/* ---- Floating cinematic metric panels ---- */}
-      <motion.div
-        initial={false}
-        animate={{ opacity: 1, y: 0 }}
-        transition={lite ? { duration: 0 } : { delay: 2, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute inset-x-0 bottom-14 z-10 md:bottom-16"
-      >
+      {/* ---- Floating metric panels (static) ---- */}
+      <div className="absolute inset-x-0 bottom-14 z-10 md:bottom-16">
         <div className="container-page">
           <div className="grid max-w-3xl grid-cols-3 gap-3 md:gap-5">
             {METRICS.map((m) => (
-              <div
-                key={m.label}
-                className="glass-dark rounded-2xl px-4 py-4 md:px-6 md:py-5"
-              >
+              <div key={m.label} className="glass-dark rounded-2xl px-4 py-4 md:px-6 md:py-5">
                 <div className="font-display bg-gradient-to-br from-[#f5c56b] to-[#ff7a2d] bg-clip-text text-2xl font-semibold tracking-tight text-transparent md:text-4xl">
                   <Counter value={m.v} suffix={m.suffix} />
                 </div>
@@ -191,23 +129,14 @@ export function Hero() {
             ))}
           </div>
         </div>
-      </motion.div>
+      </div>
 
-      {/* scroll cue */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.6, duration: 1 }}
-        className="pointer-events-none absolute bottom-5 left-1/2 z-10 hidden -translate-x-1/2 lg:block"
-      >
+      {/* scroll cue (desktop) */}
+      <div className="pointer-events-none absolute bottom-5 left-1/2 z-10 hidden -translate-x-1/2 lg:block">
         <div className="flex h-9 w-5 items-start justify-center rounded-full border border-white/25 p-1">
-          <motion.span
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-            className="h-1.5 w-1 rounded-full bg-[#f5c56b]"
-          />
+          <span className="h-1.5 w-1 rounded-full bg-[#f5c56b]" />
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
