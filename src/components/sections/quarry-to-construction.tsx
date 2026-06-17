@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useLiteMode } from "@/hooks/use-lite-mode";
 
 type Stage = {
   n: string;
@@ -70,6 +71,7 @@ const STAGES: Stage[] = [
 
 export function QuarryToConstruction() {
   const ref = useRef<HTMLDivElement>(null);
+  const lite = useLiteMode();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   const [active, setActive] = useState(0);
   const iconY = useTransform(scrollYProgress, [0, 1], [30, -30]);
@@ -90,7 +92,7 @@ export function QuarryToConstruction() {
         <div className="bg-grid-dark pointer-events-none absolute inset-0 opacity-40" />
         <motion.div
           className="pointer-events-none absolute right-[12%] top-1/3 h-[55vh] w-[55vh] rounded-full bg-[#f5c56b]/10 blur-[150px]"
-          animate={{ opacity: [0.4, 0.7, 0.4] }}
+          animate={lite ? undefined : { opacity: [0.4, 0.7, 0.4] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
 

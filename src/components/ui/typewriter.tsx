@@ -9,28 +9,28 @@ export type TWSegment = { text: string; highlight?: boolean };
 type Props = {
   segments: TWSegment[];
   speed?: number; // ms per character
-  startDelay?: number; // ms before typing begins
+  startDelay?: number; // ms before typing begins (desktop only)
   className?: string;
   highlightClass?: string;
   cursorClass?: string;
 };
 
 /**
- * Aceternity-style typewriter. Types the headline character-by-character
- * with a blinking cursor; highlighted segments render in the brand
- * gradient. Hidden characters keep their space (opacity-0) so the layout
- * never reflows. Whole words are kept on one line (no mid-word breaks).
- * Reduced-motion users see the full text immediately.
+ * Typewriter — but content-first.
+ *
+ * On touch devices and reduced-motion (and during SSR / first paint) the
+ * FULL headline renders immediately, so the user sees it instantly.
+ * Only on desktop (pointer) do we run the character-by-character type-in,
+ * which is hidden behind the short preloader so there is no flash.
  */
 export function Typewriter({
   segments,
-  speed = 55,
-  startDelay = 1700,
+  speed = 45,
+  startDelay = 700,
   className,
   highlightClass = "text-kiln-grad",
   cursorClass = "bg-kiln",
 }: Props) {
-  // Build word units, preserving each word's highlight flag.
   const words = useMemo(() => {
     const out: { text: string; highlight: boolean }[] = [];
     for (const seg of segments) {
@@ -44,22 +44,22 @@ export function Typewriter({
   }, [segments]);
 
   const total = useMemo(() => words.reduce((n, w) => n + w.text.length, 0), [words]);
+  const [typing, setTyping] = useState(false); // false → show full text
   const [count, setCount] = useState(0);
-  const [done, setDone] = useState(false);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setCount(total);
-      setDone(true);
-      return;
-    }
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const touch =
+      window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window;
+    if (reduce || touch) return; // keep full text — instant
+
+    setTyping(true);
     let i = 0;
     let inner: ReturnType<typeof setTimeout>;
     const step = () => {
       i += 1;
       setCount(i);
       if (i < total) inner = setTimeout(step, speed);
-      else setDone(true);
     };
     const start = setTimeout(step, startDelay);
     return () => {
@@ -67,6 +67,9 @@ export function Typewriter({
       clearTimeout(inner);
     };
   }, [total, speed, startDelay]);
+
+  const visibleCount = typing ? count : total;
+  const done = visibleCount >= total;
 
   const Cursor = (
     <motion.span
@@ -87,8 +90,8 @@ export function Typewriter({
           gi += 1;
           return (
             <Fragment key={wi}>
-              <span className={idx < count ? undefined : "opacity-0"}> </span>
-              {idx + 1 === count && !done && Cursor}
+              <span className={idx < visibleCount ? undefined : "opacity-0"}> </span>
+              {!done && idx + 1 === visibleCount && Cursor}
             </Fragment>
           );
         }
@@ -100,15 +103,10 @@ export function Typewriter({
               gi += 1;
               return (
                 <Fragment key={ci}>
-                  <span
-                    className={cn(
-                      word.highlight && highlightClass,
-                      idx < count ? "opacity-100" : "opacity-0"
-                    )}
-                  >
+                  <span className={cn(word.highlight && highlightClass, idx < visibleCount ? "opacity-100" : "opacity-0")}>
                     {c}
                   </span>
-                  {idx + 1 === count && !done && Cursor}
+                  {!done && idx + 1 === visibleCount && Cursor}
                 </Fragment>
               );
             })}

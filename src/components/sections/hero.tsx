@@ -14,6 +14,7 @@ import { COMPANY } from "@/lib/data";
 import { Typewriter } from "@/components/ui/typewriter";
 import { ParticleField } from "@/components/ui/particle-field";
 import { Counter } from "@/components/ui/counter";
+import { useLiteMode } from "@/hooks/use-lite-mode";
 
 // Verified cinematic metrics
 const METRICS = [
@@ -24,6 +25,7 @@ const METRICS = [
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
+  const lite = useLiteMode();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
 
   // scroll-driven depth
@@ -74,25 +76,25 @@ export function Hero() {
       <motion.div
         style={{ x: glowMX, y: glowMY }}
         className="pointer-events-none absolute -top-[15%] right-[8%] h-[55vh] w-[55vh] rounded-full bg-[#f5c56b]/15 blur-[150px]"
-        animate={{ opacity: [0.5, 0.85, 0.5], scale: [1, 1.12, 1] }}
+        animate={lite ? undefined : { opacity: [0.5, 0.85, 0.5], scale: [1, 1.12, 1] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         style={{ x: glowMY, y: glowMX }}
         className="pointer-events-none absolute top-[20%] left-[-8%] h-[45vh] w-[45vh] rounded-full bg-[#ff7a2d]/15 blur-[150px]"
-        animate={{ opacity: [0.4, 0.7, 0.4] }}
+        animate={lite ? undefined : { opacity: [0.4, 0.7, 0.4] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
 
       {/* Volumetric fog drifting at the base */}
       <motion.div
         className="pointer-events-none absolute bottom-0 left-0 h-[40vh] w-[70vw] rounded-full bg-white/[0.06] blur-[90px]"
-        animate={{ x: [-40, 60, -40], opacity: [0.4, 0.6, 0.4] }}
+        animate={lite ? undefined : { x: [-40, 60, -40], opacity: [0.4, 0.6, 0.4] }}
         transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         className="pointer-events-none absolute bottom-[5%] right-0 h-[35vh] w-[60vw] rounded-full bg-[#9fb3c8]/[0.05] blur-[100px]"
-        animate={{ x: [40, -50, 40], opacity: [0.3, 0.55, 0.3] }}
+        animate={lite ? undefined : { x: [40, -50, 40], opacity: [0.3, 0.55, 0.3] }}
         transition={{ duration: 19, repeat: Infinity, ease: "easeInOut" }}
       />
 
@@ -101,7 +103,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-[#05080f]/90 via-[#05080f]/20 to-transparent" />
       <div className="bg-grid-dark pointer-events-none absolute inset-0 opacity-40" />
 
-      <ParticleField dark className="absolute inset-0 h-full w-full" />
+      {!lite && <ParticleField dark className="absolute inset-0 h-full w-full" />}
 
       {/* transition into the light page */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-b from-transparent to-white" />
@@ -182,7 +184,7 @@ export function Hero() {
             {METRICS.map((m, i) => (
               <motion.div
                 key={m.label}
-                animate={{ y: [0, -8, 0] }}
+                animate={lite ? undefined : { y: [0, -8, 0] }}
                 transition={{ duration: 4.5 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 }}
                 className="glass-dark rounded-2xl px-4 py-4 md:px-6 md:py-5"
               >

@@ -6,9 +6,11 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { COMPANY } from "@/lib/data";
 import { TextReveal } from "@/components/ui/text-reveal";
 import { ParticleField } from "@/components/ui/particle-field";
+import { useLiteMode } from "@/hooks/use-lite-mode";
 
 export function FinalCta() {
   const ref = useRef<HTMLDivElement>(null);
+  const lite = useLiteMode();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
   const scale = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
   const glow = useTransform(scrollYProgress, [0, 1], [0.3, 0.7]);
@@ -21,7 +23,7 @@ export function FinalCta() {
     >
       <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_110%,#15264a_0%,#0a1122_50%,#070b16_100%)]" />
       <div className="bg-grid-dark pointer-events-none absolute inset-0 opacity-70" />
-      <ParticleField dark className="absolute inset-0 h-full w-full" />
+      {!lite && <ParticleField dark className="absolute inset-0 h-full w-full" />}
       <motion.div
         style={{ opacity: glow }}
         className="pointer-events-none absolute bottom-[-20%] left-1/2 h-[70vh] w-[80vh] -translate-x-1/2 rounded-full bg-gradient-to-t from-[#e8431f]/40 to-[#ff7a2d]/20 blur-[150px]"

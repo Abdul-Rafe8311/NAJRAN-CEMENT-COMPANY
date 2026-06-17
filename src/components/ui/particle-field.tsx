@@ -12,6 +12,8 @@ export function ParticleField({ className, dark = false }: { className?: string;
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // No particle canvas on touch devices — saves an rAF loop + shadowBlur cost.
+    if (window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window) return;
     const canvas = ref.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");

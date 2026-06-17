@@ -10,15 +10,25 @@ export function Preloader() {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
+    // Skip the loading sequence entirely on touch / reduced-motion —
+    // content shows immediately. Keep a short sequence on desktop.
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const touch =
+      window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window;
+    if (reduce || touch) {
+      setDone(true);
+      return;
+    }
+
     let raf = 0;
     const start = performance.now();
-    const duration = 1500;
+    const duration = 650;
     const tick = (now: number) => {
       const p = Math.min(1, (now - start) / duration);
       const eased = 1 - Math.pow(1 - p, 3);
       setCount(Math.round(eased * 100));
       if (p < 1) raf = requestAnimationFrame(tick);
-      else setTimeout(() => setDone(true), 350);
+      else setTimeout(() => setDone(true), 150);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
