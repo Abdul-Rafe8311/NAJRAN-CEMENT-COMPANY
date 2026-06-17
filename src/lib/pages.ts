@@ -20,6 +20,8 @@ export type Block =
   | { type: "table"; columns: string[]; rows: string[][] }
   | { type: "cta"; label: string; href: string }
   | { type: "form" }
+  | { type: "reports"; category: "financial" | "assembly" | "board" }
+  | { type: "ircontact" }
   | { type: "contact" }
   | { type: "callout"; text: string; review?: boolean };
 
@@ -293,51 +295,29 @@ export const PAGES: Record<string, PageContent> = {
     eyebrow: "Investors",
     title: "Financial Reports",
     intro:
-      "Najran Cement is listed on the Saudi Exchange (Tadawul) under symbol 3002. Quarterly and annual financial statements are published here.",
-    blocks: [
-      {
-        type: "callout",
-        text: "Financial report documents (PDF) to be migrated from the current site / Tadawul. Pending client upload.",
-        review: true,
-      },
-      { type: "contact" },
-    ],
-    review: true,
+      "Najran Cement is listed on the Saudi Exchange (Tadawul) under symbol 3002. View or download our quarterly and annual financial statements.",
+    blocks: [{ type: "reports", category: "financial" }],
   },
 
   "investors/assembly-minutes": {
     eyebrow: "Investors",
     title: "General Assembly Minutes",
     intro: "Minutes and outcomes of Najran Cement's general assembly meetings.",
-    blocks: [
-      {
-        type: "callout",
-        text: "Assembly minutes documents to be migrated from the current site. Pending client upload.",
-        review: true,
-      },
-    ],
-    review: true,
+    blocks: [{ type: "reports", category: "assembly" }],
   },
 
   "investors/board-reports": {
     eyebrow: "Investors",
     title: "Board of Directors Reports",
     intro: "Annual reports of the Board of Directors.",
-    blocks: [
-      {
-        type: "callout",
-        text: "Board reports to be migrated from the current site. Pending client upload.",
-        review: true,
-      },
-    ],
-    review: true,
+    blocks: [{ type: "reports", category: "board" }],
   },
 
   "investors/contact": {
     eyebrow: "Investors",
-    title: "Investor Relations Contact",
-    intro: "For investor enquiries, please reach our team directly.",
-    blocks: [{ type: "contact" }],
+    title: "Investors Relations Contact",
+    intro: "You can fill in the form below or contact us using the following info.",
+    blocks: [{ type: "ircontact" }],
   },
 
   /* ---------------- MEDIA ---------------- */

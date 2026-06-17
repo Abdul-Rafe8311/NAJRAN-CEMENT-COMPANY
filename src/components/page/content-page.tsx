@@ -8,6 +8,8 @@ import { Reveal, RevealGroup } from "@/components/ui/reveal";
 import { TextReveal } from "@/components/ui/text-reveal";
 import { ReviewBadge } from "@/components/ui/review-badge";
 import { SupplierForm } from "./supplier-form";
+import { IRContact } from "./ir-contact";
+import { REPORTS } from "@/lib/reports";
 import { cn } from "@/lib/utils";
 
 function Arrow() {
@@ -186,6 +188,58 @@ function BlockView({ block }: { block: Block }) {
       );
     case "form":
       return <SupplierForm />;
+    case "ircontact":
+      return <IRContact />;
+    case "reports": {
+      const list = REPORTS[block.category];
+      const years = [...new Set(list.map((r) => r.year))];
+      return (
+        <div className="mt-8 space-y-10">
+          {years.map((y) => (
+            <Reveal key={y}>
+              <h3 className="font-display text-xl font-semibold text-kiln">{y}</h3>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {list
+                  .filter((r) => r.year === y)
+                  .map((r) => (
+                    <div
+                      key={r.file}
+                      className="flex items-center justify-between gap-3 rounded-[var(--radius-card)] border border-line bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,0.04)]"
+                    >
+                      <div className="flex min-w-0 items-center gap-3">
+                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-kiln/10 text-kiln">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+                            <path d="M14 3v5h5" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+                          </svg>
+                        </span>
+                        <span className="truncate text-sm font-medium text-bone">{r.label}</span>
+                      </div>
+                      <div className="flex shrink-0 items-center gap-2">
+                        <a
+                          href={r.file}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="rounded-full border border-line px-3.5 py-1.5 text-xs font-medium text-bone transition-colors hover:border-kiln/60 hover:text-kiln"
+                        >
+                          View
+                        </a>
+                        <a
+                          href={r.file}
+                          download
+                          className="rounded-full bg-gradient-to-r from-kiln to-ember px-3.5 py-1.5 text-xs font-medium text-white transition-transform hover:scale-[1.03]"
+                        >
+                          Download
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      );
+    }
     case "contact":
       return (
         <Reveal>
