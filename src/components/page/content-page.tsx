@@ -196,7 +196,7 @@ function BlockView({ block }: { block: Block }) {
       return (
         <div className="mt-8 space-y-10">
           {years.map((y) => (
-            <Reveal key={y}>
+            <Reveal key={y} className="scroll-mt-28">
               <h3 className="font-display text-xl font-semibold text-kiln">{y}</h3>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 {list
@@ -220,14 +220,14 @@ function BlockView({ block }: { block: Block }) {
                           href={r.file}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="rounded-full border border-line px-3.5 py-1.5 text-xs font-medium text-bone transition-colors hover:border-kiln/60 hover:text-kiln"
+                          className="rounded-full border border-line px-4 py-2 text-xs font-medium text-bone transition-colors hover:border-kiln/60 hover:text-kiln"
                         >
                           View
                         </a>
                         <a
                           href={r.file}
                           download
-                          className="rounded-full bg-gradient-to-r from-kiln to-ember px-3.5 py-1.5 text-xs font-medium text-white transition-transform hover:scale-[1.03]"
+                          className="rounded-full bg-gradient-to-r from-kiln to-ember px-4 py-2 text-xs font-medium text-white transition-transform hover:scale-[1.03]"
                         >
                           Download
                         </a>
