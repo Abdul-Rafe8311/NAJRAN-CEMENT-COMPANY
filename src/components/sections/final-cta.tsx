@@ -3,11 +3,16 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
+import dynamic from "next/dynamic";
 import { COMPANY } from "@/lib/data";
 import { TextReveal } from "@/components/ui/text-reveal";
-import { ParticleField } from "@/components/ui/particle-field";
 import { SocialHub } from "@/components/ui/social-hub";
 import { useLiteMode } from "@/hooks/use-lite-mode";
+
+const ParticleField = dynamic(
+  () => import("@/components/ui/particle-field").then((m) => m.ParticleField),
+  { ssr: false }
+);
 
 export function FinalCta() {
   const ref = useRef<HTMLDivElement>(null);

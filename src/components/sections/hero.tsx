@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import {
   motion,
   useMotionValue,
@@ -12,9 +13,14 @@ import {
 } from "framer-motion";
 import { COMPANY } from "@/lib/data";
 import { RevealHeadline } from "@/components/ui/reveal-headline";
-import { ParticleField } from "@/components/ui/particle-field";
 import { Counter } from "@/components/ui/counter";
 import { useLiteMode } from "@/hooks/use-lite-mode";
+
+// Desktop-only decorative canvas — split out so it never ships to mobile.
+const ParticleField = dynamic(
+  () => import("@/components/ui/particle-field").then((m) => m.ParticleField),
+  { ssr: false }
+);
 
 // Verified cinematic metrics
 const METRICS = [
@@ -112,7 +118,7 @@ export function Hero() {
         >
           <span className="glass-dark inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white/80">
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-[#f5c56b] opacity-70" />
+              <span className="absolute hidden h-2 w-2 animate-ping rounded-full bg-[#f5c56b] opacity-70 lg:inline-flex" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-[#f5c56b]" />
             </span>
             {COMPANY.location} · Est. {COMPANY.established}
