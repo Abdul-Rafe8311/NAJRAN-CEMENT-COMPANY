@@ -23,38 +23,38 @@ export function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-[120] flex justify-center px-4">
-      {/* Resizable bar — shrinks to a centered pill on scroll */}
+      {/* Dark glass resizable pill */}
       <motion.div
         initial={{ y: -80, opacity: 0 }}
         animate={{
           y: 0,
           opacity: 1,
-          maxWidth: scrolled ? 1200 : 1320,
-          paddingTop: scrolled ? 8 : 14,
-          paddingBottom: scrolled ? 8 : 14,
-          borderRadius: scrolled ? 999 : 0,
-          backgroundColor: scrolled ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.9)",
-          borderColor: scrolled ? "rgba(230,232,236,1)" : "rgba(230,232,236,0)",
+          maxWidth: scrolled ? 1120 : 1320,
+          paddingTop: scrolled ? 7 : 11,
+          paddingBottom: scrolled ? 7 : 11,
+          backgroundColor: scrolled ? "rgba(8,12,24,0.86)" : "rgba(8,12,24,0.55)",
           boxShadow: scrolled
-            ? "0 12px 40px -14px rgba(16,24,40,0.22)"
-            : "0 0 0 rgba(16,24,40,0)",
+            ? "0 18px 50px -18px rgba(0,0,0,0.65)"
+            : "0 10px 36px -16px rgba(0,0,0,0.5)",
         }}
         transition={{
           y: { delay: 0.2, duration: 0.7, ease: [0.16, 1, 0.3, 1] },
           opacity: { delay: 0.2, duration: 0.7 },
           default: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
         }}
-        className="mt-3 flex w-full items-center justify-between gap-3 border px-4 md:px-5"
+        className="mt-3 flex w-full items-center justify-between gap-3 rounded-full border border-white/10 px-3 backdrop-blur-xl md:px-4"
       >
         <Link href="/" className="shrink-0" aria-label="Najran Cement — home">
-          <Image
-            src="/logo.png"
-            alt="Najran Cement Company"
-            width={592}
-            height={150}
-            priority
-            className={cn("w-auto transition-all duration-300", scrolled ? "h-8" : "h-9 md:h-10")}
-          />
+          <span className="block rounded-xl bg-white px-2.5 py-1.5">
+            <Image
+              src="/logo.png"
+              alt="Najran Cement Company"
+              width={592}
+              height={150}
+              priority
+              className={cn("w-auto transition-all duration-300", scrolled ? "h-6" : "h-7 md:h-8")}
+            />
+          </span>
         </Link>
 
         {/* Desktop nav */}
@@ -70,7 +70,7 @@ export function Navbar() {
                 href={item.href}
                 className={cn(
                   "flex items-center gap-1 whitespace-nowrap px-2.5 py-2 text-sm font-medium transition-colors",
-                  isActive(item) ? "text-kiln" : "text-bone/80 hover:text-bone"
+                  isActive(item) ? "text-[#f5c56b]" : "text-white/75 hover:text-white"
                 )}
               >
                 {item.label}
@@ -91,7 +91,7 @@ export function Navbar() {
                       transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                       className="absolute left-0 top-full pt-3"
                     >
-                      <div className="card-soft min-w-[248px] overflow-hidden p-2">
+                      <div className="min-w-[248px] overflow-hidden rounded-2xl border border-white/10 bg-[#0c1322]/95 p-2 shadow-[0_20px_50px_-16px_rgba(0,0,0,0.7)] backdrop-blur-xl">
                         {item.children.map((c, i) => (
                           <motion.div
                             key={c.href}
@@ -101,12 +101,12 @@ export function Navbar() {
                           >
                             <Link
                               href={c.href}
-                              className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm text-ash transition-colors hover:bg-coal hover:text-bone"
+                              className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-white"
                             >
                               {c.label}
                               <svg
                                 width="13" height="13" viewBox="0 0 14 14" fill="none"
-                                className="-translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100"
+                                className="-translate-x-1 text-[#f5c56b] opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100"
                               >
                                 <path d="M1 7h11M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                               </svg>
@@ -125,7 +125,7 @@ export function Navbar() {
         <div className="flex items-center gap-3">
           <Link
             href="/#contact"
-            className="hidden rounded-full bg-bone px-5 py-2.5 text-sm font-medium text-white transition-transform hover:scale-[1.03] sm:inline-block"
+            className="hidden rounded-full bg-gradient-to-r from-[#f5c56b] to-[#ff7a2d] px-5 py-2.5 text-sm font-semibold text-[#1a0f06] transition-transform hover:scale-[1.03] sm:inline-block"
           >
             Request a Quote
           </Link>
@@ -136,8 +136,8 @@ export function Navbar() {
             onClick={() => setMobileOpen((v) => !v)}
             className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 xl:hidden"
           >
-            <motion.span animate={mobileOpen ? { rotate: 45, y: 4 } : { rotate: 0, y: 0 }} className="h-px w-6 bg-bone" />
-            <motion.span animate={mobileOpen ? { rotate: -45, y: -4 } : { rotate: 0, y: 0 }} className="h-px w-6 bg-bone" />
+            <motion.span animate={mobileOpen ? { rotate: 45, y: 4 } : { rotate: 0, y: 0 }} className="h-px w-6 bg-white" />
+            <motion.span animate={mobileOpen ? { rotate: -45, y: -4 } : { rotate: 0, y: 0 }} className="h-px w-6 bg-white" />
           </button>
         </div>
       </motion.div>
@@ -152,9 +152,9 @@ export function Navbar() {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="absolute left-4 right-4 top-[72px] xl:hidden"
           >
-            <div className="card-soft max-h-[72vh] overflow-y-auto p-4">
+            <div className="max-h-[72vh] overflow-y-auto rounded-3xl border border-white/10 bg-[#0c1322]/97 p-4 text-white shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)] backdrop-blur-xl">
               {NAV.map((item) => (
-                <div key={item.label} className="border-b border-line/70 last:border-0">
+                <div key={item.label} className="border-b border-white/10 last:border-0">
                   {item.children ? (
                     <>
                       <button
@@ -183,7 +183,7 @@ export function Navbar() {
                                   key={c.href}
                                   href={c.href}
                                   onClick={() => setMobileOpen(false)}
-                                  className="block py-2.5 text-sm text-ash"
+                                  className="block py-2.5 text-sm text-white/60"
                                 >
                                   {c.label}
                                 </Link>
@@ -207,11 +207,11 @@ export function Navbar() {
               <Link
                 href="/#contact"
                 onClick={() => setMobileOpen(false)}
-                className="mt-5 block rounded-full bg-bone py-3 text-center font-medium text-white"
+                className="mt-5 block rounded-full bg-gradient-to-r from-[#f5c56b] to-[#ff7a2d] py-3 text-center font-semibold text-[#1a0f06]"
               >
                 Request a Quote
               </Link>
-              <p className="mt-4 text-center text-xs text-muted">{COMPANY.phone}</p>
+              <p className="mt-4 text-center text-xs text-white/40">{COMPANY.phone}</p>
             </div>
           </motion.div>
         )}

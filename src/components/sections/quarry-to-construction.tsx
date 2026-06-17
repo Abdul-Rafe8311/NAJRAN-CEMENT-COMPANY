@@ -84,7 +84,7 @@ export function QuarryToConstruction() {
 
   return (
     <section ref={ref} id="journey" className="relative bg-[#05080f]" style={{ height: `${STAGES.length * 100}vh` }}>
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+      <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden">
         {/* background */}
         <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_70%_30%,#11203c_0%,#0a1122_50%,#05080f_100%)]" />
         <div className="bg-grid-dark pointer-events-none absolute inset-0 opacity-40" />

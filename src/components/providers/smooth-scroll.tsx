@@ -6,23 +6,34 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 /**
- * Lenis smooth scroll, driven by GSAP's ticker so that ScrollTrigger,
- * Lenis and Framer Motion all share one synchronized RAF loop.
- * Respects prefers-reduced-motion by skipping the smoothing layer.
+ * Lenis smooth scroll — DESKTOP ONLY.
+ *
+ * On touch devices (phones/tablets) we deliberately skip Lenis and use
+ * native scrolling. Lenis's touch handling (syncTouch) hijacks the
+ * browser's momentum scroll and was the cause of stuck/jittery mobile
+ * scrolling. Native scroll on touch = smooth, reliable, accessible.
+ *
+ * Desktop keeps Lenis (wheel smoothing only) synced to the GSAP ticker.
+ * Reduced-motion users always get native scrolling.
  */
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isTouch =
+      window.matchMedia("(pointer: coarse)").matches ||
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0;
+
+    // Native scrolling on touch + reduced-motion. No hijacking whatsoever.
+    if (prefersReduced || isTouch) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
     const lenis = new Lenis({
-      lerp: 0.12, // responsive smoothing — snappier than duration-based easing
+      lerp: 0.12,
       wheelMultiplier: 1,
       smoothWheel: true,
-      syncTouch: true,
-      touchMultiplier: 1.6,
+      syncTouch: false, // never intercept touch
     });
 
     lenis.on("scroll", ScrollTrigger.update);
